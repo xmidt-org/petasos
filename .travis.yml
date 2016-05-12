@@ -1,0 +1,17 @@
+language: go
+go: 
+    - 1.5.1
+
+env:
+    - TEST_DIR=service
+    - TEST_DIR=service/cmd
+    - TEST_DIR=tools/cmd/discover
+
+before_install:
+    - sudo pip install --user codecov
+
+script:
+    - cd $TEST_DIR && go test -coverprofile=coverage.txt
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
