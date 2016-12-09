@@ -1,11 +1,9 @@
 language: go
 go: 
-    - 1.5.1
+    - 1.7.3
 
 env:
-    - TEST_DIR=service
-    - TEST_DIR=service/cmd
-    - TEST_DIR=tools/cmd/discover
+    - TEST_DIR=src/petasos
 
 before_install:
     - sudo pip install --user codecov
