@@ -1,3 +1,6 @@
+dist: trusty
+sudo: required
+
 language: go
 go: 
     - 1.7.3
@@ -6,7 +9,7 @@ env:
     - TEST_DIR=src/petasos
 
 before_install:
-    - sudo pip install --user codecov
+    - sudo pip install codecov
 
 script:
     - cd $TEST_DIR && go test -coverprofile=coverage.txt
