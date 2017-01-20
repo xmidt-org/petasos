@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/Comcast/golang-discovery-client/service"
 	"github.com/Comcast/webpa-common/concurrent"
+	"github.com/Comcast/webpa-common/device"
 	"github.com/Comcast/webpa-common/fact"
 	"github.com/Comcast/webpa-common/handler"
 	"github.com/Comcast/webpa-common/hash"
@@ -14,6 +15,7 @@ import (
 	"github.com/Comcast/webpa-common/logging/golog"
 	"github.com/Comcast/webpa-common/server"
 	"github.com/billhathaway/consistentHash"
+	"github.com/spf13/viper"
 	"golang.org/x/net/context"
 	"net/http"
 	_ "net/http/pprof"
@@ -29,35 +31,20 @@ const (
 // Configuration hold all the configurable options for petasos
 type Configuration struct {
 	server.Configuration
-	AlternatePort    uint16                   `json:"altport"`
+	AlternateAddress string                   `json:"alternateAddress"`
 	LoggerFactory    golog.LoggerFactory      `json:"log"`
 	DiscoveryBuilder service.DiscoveryBuilder `json:"discovery"`
 	VnodeCount       int                      `json:"vnodeCount"`
 }
 
-func (c *Configuration) AlternateAddress() (string, bool) {
-	if c.AlternatePort > 0 {
-		return fmt.Sprintf(":%d", c.AlternatePort), true
-	}
-
-	return "", false
-}
-
-func (c *Configuration) String() string {
-	data, err := json.Marshal(c)
-	if err != nil {
-		return err.Error()
-	}
-
-	return string(data)
-}
-
 func main() {
-	var configurationFile string
-	flag.StringVar(&configurationFile, "f", "petasos.cfg.json", "The config file")
-	flag.Parse()
+	viper := viper.New()
+	if err := server.ReadInConfig("petasos", viper, nil, nil); err != nil {
+		fmt.Fprintln(os.Stderr, err.Error())
+		os.Exit(1)
+	}
 
-	configuration := &Configuration{}
+	configuration := new(Configuration)
 	if err := server.ReadConfigurationFile(configurationFile, configuration); err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to read configuration file: %v\n", err)
 		os.Exit(1)

@@ -1,6 +1,10 @@
 hash: 7a7afc4b16c3b43037c80343e69654d71bddd3bd4eb5e93a26e09da3d1fd28b2
 updated: 2016-11-30T08:57:37.090403655-08:00
 imports:
+- name: github.com/spf13/viper
+  version: 651d9d916abc3c3d6a91a12549495caba5edffd2
+- name: github.com/spf13/pflag
+  version: 5ccb023bc27df288a957c5e994cd44fd19619465
 - name: github.com/billhathaway/consistentHash
   version: addea16d2229dba874111898b45be7f4a78af631
 - name: github.com/bkaradzic/go-lz4

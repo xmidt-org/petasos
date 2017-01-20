@@ -1,8 +1,13 @@
 {
-	"port": 9090,
-	"altport": 9091,
-	"hcport": 9999,
-	"pprofport": 9191,
+	"address": ":9090",
+
+	"healthCheck": {
+		"address": ":9999"
+	},
+
+	"pprof": {
+		"address": ":9191"
+	},
 	
 	"discovery": {
 		"connection": "127.0.0.1:2181",
