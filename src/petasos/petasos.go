@@ -28,19 +28,19 @@ func petasos(arguments []string) int {
 	)
 
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to initialize Viper environment: %s", err)
+		fmt.Fprintf(os.Stderr, "Unable to initialize Viper environment: %s\n", err)
 		return 1
 	}
 
 	serviceOptions, registrar, err := service.New(logger, nil, v)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to initialize service discovery: %s", err)
+		fmt.Fprintf(os.Stderr, "Unable to initialize service discovery: %s\n", err)
 		return 2
 	}
 
 	watch, err := registrar.Watch()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to set watch on services: %s", err)
+		fmt.Fprintf(os.Stderr, "Unable to set watch on services: %s\n", err)
 		return 3
 	}
 
