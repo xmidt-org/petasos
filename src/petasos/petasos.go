@@ -34,11 +34,13 @@ func petasos(arguments []string) int {
 
 	logger.Info("Using configuration file: %s", v.ConfigFileUsed())
 
-	serviceOptions, registrar, err := service.Initialize(logger, nil, v)
+	serviceOptions, registrar, err := service.Initialize(logger, nil, v.Sub(service.DiscoveryKey))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to initialize service discovery: %s\n", err)
 		return 2
 	}
+
+	logger.Info("Service options: %#v", serviceOptions)
 
 	watch, err := registrar.Watch()
 	if err != nil {
