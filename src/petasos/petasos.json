@@ -14,8 +14,7 @@
 	"discovery": {
 		"servers": ["localhost:2181"],
 		"serviceName": "talaria",
-		"environment": "dev",
-		"vnodeCount": 221
+		"environment": "dev"
 	},
 	
 	"log" : {
