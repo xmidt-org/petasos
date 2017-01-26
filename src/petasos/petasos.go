@@ -24,7 +24,7 @@ func petasos(arguments []string) int {
 		f = pflag.NewFlagSet(applicationName, pflag.PanicOnError)
 		v = viper.New()
 
-		logger, webPA, err = server.New(applicationName, arguments, f, v)
+		logger, webPA, err = server.Initialize(applicationName, arguments, f, v)
 	)
 
 	if err != nil {
@@ -32,7 +32,7 @@ func petasos(arguments []string) int {
 		return 1
 	}
 
-	serviceOptions, registrar, err := service.New(logger, nil, v)
+	serviceOptions, registrar, err := service.Initialize(logger, nil, v)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to initialize service discovery: %s\n", err)
 		return 2
