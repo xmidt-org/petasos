@@ -1,5 +1,5 @@
-hash: 556f26f3cf6d3f2ad60791749a0626bba25379b7e5a2a37750ce129d3558174c
-updated: 2017-01-26T19:39:17.347021813-08:00
+hash: f5e9285d9bdcc0712481ecee9b008284293c9d463afec3bacb40bae82537ba03
+updated: 2017-01-26T21:14:10.637472826-08:00
 imports:
 - name: github.com/billhathaway/consistentHash
   version: addea16d2229dba874111898b45be7f4a78af631
@@ -8,7 +8,7 @@ imports:
   subpackages:
   - linux
 - name: github.com/Comcast/webpa-common
-  version: 20c53a1dea5539667fdb73c11586a7db04dc5862
+  version: 7505c2dc1f02ef710e0f6a47f5a6b1cc812bcd58
   subpackages:
   - concurrent
   - device
