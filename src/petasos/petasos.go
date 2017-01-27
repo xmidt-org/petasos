@@ -21,7 +21,7 @@ const (
 
 func petasos(arguments []string) int {
 	var (
-		f = pflag.NewFlagSet(applicationName, pflag.PanicOnError)
+		f = pflag.NewFlagSet(applicationName, pflag.ContinueOnError)
 		v = viper.New()
 
 		logger, webPA, err = server.Initialize(applicationName, arguments, f, v)
