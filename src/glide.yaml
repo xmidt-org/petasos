@@ -14,3 +14,5 @@ import:
   version: 5ed0fc31f7f453625df314d8e66b9791e8d13003
 - package: github.com/strava/go.serversets
   version: 6b724900cd036a1da1f72c438b9e7f447446dcd2
+- package: github.com/justinas/alice
+  version: 1051eaf52fcafdd87ead59d28b065f1fcb8274ec
