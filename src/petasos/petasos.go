@@ -19,7 +19,13 @@ const (
 	defaultVnodeCount int = 211
 )
 
+// petasos is the driver function for Petasos.  It performs everything main() would do,
+// except for obtaining the command-line arguments (which are passed to it).
 func petasos(arguments []string) int {
+	//
+	// Initialize the server environment: command-line flags, Viper, logging, and the WebPA instance
+	//
+
 	var (
 		f = pflag.NewFlagSet(applicationName, pflag.ContinueOnError)
 		v = viper.New()
@@ -33,6 +39,10 @@ func petasos(arguments []string) int {
 	}
 
 	logger.Info("Using configuration file: %s", v.ConfigFileUsed())
+
+	//
+	// Now, initialize the service discovery infrastructure
+	//
 
 	serviceOptions, registrar, err := service.Initialize(logger, nil, v.Sub(service.DiscoveryKey))
 	if err != nil {
@@ -60,6 +70,10 @@ func petasos(arguments []string) int {
 		runnable = webPA.Prepare(logger, redirectHandler)
 		signals  = make(chan os.Signal, 1)
 	)
+
+	//
+	// Execute the runnable, which runs all the servers, and wait for a signal
+	//
 
 	if err := concurrent.Await(runnable, signals); err != nil {
 		fmt.Fprintf(os.Stderr, "Error when starting %s: %s", applicationName, err)
