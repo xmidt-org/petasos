@@ -1,5 +1,5 @@
-hash: 7609b0360001e0d6b642e48b3859d0abe1d9cc58d03e6cd37f4365dbc2c131bc
-updated: 2017-01-25T16:15:57.564652076-08:00
+hash: d5cf0f4128b2786863af39495b65df819adb145dc2300a7326a6de85ddd5f3e2
+updated: 2017-01-26T18:08:22.119161017-08:00
 imports:
 - name: github.com/billhathaway/consistentHash
   version: addea16d2229dba874111898b45be7f4a78af631
@@ -8,7 +8,7 @@ imports:
   subpackages:
   - linux
 - name: github.com/Comcast/webpa-common
-  version: 9b06789261ea3204d0cf5f0402ea4f17e2ccf5c8
+  version: 20c53a1dea5539667fdb73c11586a7db04dc5862
   subpackages:
   - concurrent
   - device
@@ -21,7 +21,7 @@ imports:
 - name: github.com/fsnotify/fsnotify
   version: fd9ec7deca8bf46ecd2a795baaacf2b3a9be1197
 - name: github.com/gorilla/websocket
-  version: 4e4c8d08b4b90add48392b80324adb3630ff3431
+  version: c36f2fe5c330f0ac404b616b96c438b8616b1aaf
 - name: github.com/hashicorp/hcl
   version: db4f0768927a665a06c32855186e1bc762bcc8f5
   subpackages:
