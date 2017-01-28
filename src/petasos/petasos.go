@@ -67,8 +67,8 @@ func petasos(arguments []string) int {
 			logger,
 		)
 
-		runnable = webPA.Prepare(logger, redirectHandler)
-		signals  = make(chan os.Signal, 1)
+		_, runnable = webPA.Prepare(logger, redirectHandler)
+		signals     = make(chan os.Signal, 1)
 	)
 
 	//
