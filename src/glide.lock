@@ -1,5 +1,5 @@
-hash: ff7bd3bb0a4baae5f0773c078c73e67a0e50ca103d46c352f0aff3db0f39ee8f
-updated: 2017-01-27T16:43:13.084254859-08:00
+hash: a66b06e7da1712c17a1aa735b7c75a10a58d643be6a6523d79a78bb608b7b865
+updated: 2017-02-01T15:20:53.902227661-08:00
 imports:
 - name: github.com/billhathaway/consistentHash
   version: addea16d2229dba874111898b45be7f4a78af631
@@ -8,7 +8,7 @@ imports:
   subpackages:
   - linux
 - name: github.com/Comcast/webpa-common
-  version: 654820452e020553120daeca2a2980dc6405b91a
+  version: 5de00e3ce1afb3eb2e08664e0e8c9c3bd3e738ff
   subpackages:
   - concurrent
   - device
@@ -21,9 +21,9 @@ imports:
 - name: github.com/fsnotify/fsnotify
   version: a904159b9206978bb6d53fcc7a769e5cd726c737
 - name: github.com/gorilla/websocket
-  version: c36f2fe5c330f0ac404b616b96c438b8616b1aaf
+  version: 3ab3a8b8831546bd18fd182c20687ca853b2bb13
 - name: github.com/hashicorp/hcl
-  version: db4f0768927a665a06c32855186e1bc762bcc8f5
+  version: 88e9565e9965f4054f86c72ff1ad1bb50e560d6f
   subpackages:
   - hcl/ast
   - hcl/parser
@@ -40,8 +40,6 @@ imports:
   - layout
   - levels
   - logger
-- name: github.com/justinas/alice
-  version: 1051eaf52fcafdd87ead59d28b065f1fcb8274ec
 - name: github.com/magiconair/properties
   version: b3b15ef068fd0b17ddf408a23669f20811d194d2
 - name: github.com/mitchellh/mapstructure
@@ -63,21 +61,21 @@ imports:
   subpackages:
   - mem
 - name: github.com/spf13/cast
-  version: 56a7ecbeb18dde53c6db4bd96b541fd9741b8d44
+  version: d1139bab1c07d5ad390a65e7305876b3c1a8370b
 - name: github.com/spf13/jwalterweatherman
   version: fa7ca7e836cf3a8bb4ebf799f472c12d7e903d66
 - name: github.com/spf13/pflag
-  version: a9a634f3de0a7529baded7ad6b0c7467d5c6eca7
+  version: 9ff6c6923cfffbcd502984b8e0c80539a94968b7
 - name: github.com/spf13/viper
   version: 5ed0fc31f7f453625df314d8e66b9791e8d13003
 - name: github.com/strava/go.serversets
-  version: 6b724900cd036a1da1f72c438b9e7f447446dcd2
+  version: 28ab685d470f2bfb6d8abe4077cc1ab19c33e24b
 - name: github.com/t-k/fluent-logger-golang
   version: 0f8ec08f2057a61574b6943e75045fffbeae894e
   subpackages:
   - fluent
 - name: github.com/tinylib/msgp
-  version: 362bfb3384d53ae4d5dd745983a4d70b6d23628c
+  version: 38a6f61a768dc24552dad94611923841b53acc4f
   subpackages:
   - msgp
 - name: github.com/ugorji/go
@@ -85,11 +83,11 @@ imports:
   subpackages:
   - codec
 - name: golang.org/x/sys
-  version: d75a52659825e75fff6158388dddc6a5b04f9ba5
+  version: 7a6e5648d140666db5d920909e082ca00a87ba2c
   subpackages:
   - unix
 - name: golang.org/x/text
-  version: ece019dcfd29abcf65d0d1dfe145e8faad097640
+  version: 506f9d5c962f284575e88337e7d9296d27e729d3
   subpackages:
   - transform
   - unicode/norm

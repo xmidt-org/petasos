@@ -2,17 +2,9 @@ package: .
 homepage: https://github.com/Comcast/petasos
 import:
 - package: github.com/Comcast/webpa-common
-  version: 654820452e020553120daeca2a2980dc6405b91a
+  version: 5de00e3ce1afb3eb2e08664e0e8c9c3bd3e738ff
   subpackages:
   - concurrent
   - device
   - server
   - service
-- package: github.com/spf13/pflag
-  version: a9a634f3de0a7529baded7ad6b0c7467d5c6eca7
-- package: github.com/spf13/viper
-  version: 5ed0fc31f7f453625df314d8e66b9791e8d13003
-- package: github.com/strava/go.serversets
-  version: 6b724900cd036a1da1f72c438b9e7f447446dcd2
-- package: github.com/justinas/alice
-  version: 1051eaf52fcafdd87ead59d28b065f1fcb8274ec
