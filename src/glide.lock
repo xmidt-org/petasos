@@ -1,5 +1,5 @@
-hash: a66b06e7da1712c17a1aa735b7c75a10a58d643be6a6523d79a78bb608b7b865
-updated: 2017-02-01T15:20:53.902227661-08:00
+hash: 7155ab405fde34efcb59c94290731abb41fa6ca30a1c9c33bfbf20e7e1eb7749
+updated: 2017-02-01T15:41:47.859923324-08:00
 imports:
 - name: github.com/billhathaway/consistentHash
   version: addea16d2229dba874111898b45be7f4a78af631
