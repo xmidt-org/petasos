@@ -22,8 +22,8 @@ Requires:       supervisor
 
 %build
 export GOPATH=$(pwd)
-#go get %{name}
-#go build %{name}
+go get %{name}
+go build %{name}
 touch petasos
 
 

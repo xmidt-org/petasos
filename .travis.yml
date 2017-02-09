@@ -1,20 +1,18 @@
-dist: trusty
 sudo: required
 
-language: go
-go: 
-    - 1.7.3
+language: golang
 
-env:
-    - TEST_DIR=src/petasos
+services:
+    - docker
 
 before_install:
-    - sudo pip install codecov rpm
+    - docker pull schmidtw/webpa.builder.centos6:latest
+    - docker run -it -d --name build schmidtw/webpa.builder.centos6 bash
+    - docker exec build git clone https://github.com/Comcast/petasos.git
 
 script:
-    - tar --transform "s/^\./petasos-1.0/" -czf petasos-1.0.tar.gz .
-    - cd $TEST_DIR && go test -coverprofile=coverage.txt
+    - docker exec build rpmbuild -ba -H/product -B/
 
-after_success:
-    - bash <(curl -s https://codecov.io/bash)
-    - rpmbuild -bb --define "_buildnumber $TRAVIS_BUILD_NUMBER" petasos.spec
+#after_success:
+#    - bash <(curl -s https://codecov.io/bash)
+#    - rpmbuild -bb --define "_buildnumber $TRAVIS_BUILD_NUMBER" petasos.spec
