@@ -32,7 +32,7 @@ popd
 
 # Install Binary
 %{__install} -d %{buildroot}%{_bindir}
-%{__install} -p /src/petasos/%{name} %{buildroot}%{_bindir}
+%{__install} -p src/petasos/%{name} %{buildroot}%{_bindir}
 
 # Install Service
 %{__install} -d %{buildroot}%{_initddir}
