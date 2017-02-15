@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:       petasos
-Version:    1.1.%{_buildnumber}
+Version:    1.1.0
 Release:    1%{?dist}
 Summary:    The WebPA HTTP redirector component.
 
@@ -22,16 +22,17 @@ Requires:       supervisor
 
 %build
 export GOPATH=$(pwd)
-go get %{name}
+pushd src
+glide install
+cd petasos
 go build %{name}
-touch petasos
-
+popd
 
 %install
 
 # Install Binary
 %{__install} -d %{buildroot}%{_bindir}
-%{__install} -p %{name} %{buildroot}%{_bindir}
+%{__install} -p /src/petasos/%{name} %{buildroot}%{_bindir}
 
 # Install Service
 %{__install} -d %{buildroot}%{_initddir}
