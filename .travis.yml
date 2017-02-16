@@ -1,6 +1,6 @@
 sudo: required
 
-language: go
+language: golang
 
 services:
     - docker
