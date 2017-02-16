@@ -3,11 +3,12 @@
 echo "Hello world."
 
 release=`git describe --abbrev=0 --tags`
-echo $release
-echo $BUILD_NUMBER
 
-# release="${v%.*}.$((${v##*.}+1))"
-# echo $release
+filename=`echo "$release" | awk -F. '{$NF+=1; OFS="."; print $0}'`
+filename+="-${BUILD_NUMBER}alpha"
+
+echo $release
+echo $filename
 
 # echo "Building the petasos rpm..."
 # docker exec build bash -c "pushd petasos; git fetch; git checkout travis-testing; popd"
