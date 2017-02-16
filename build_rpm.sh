@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Hello world."
+
 release=`git describe --abbrev=0 --tags`
 echo $release
 echo $TRAVIS_BUILD_NUMBER
