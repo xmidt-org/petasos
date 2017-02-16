@@ -8,7 +8,7 @@ services:
 before_install:
     - docker pull schmidtw/webpa.builder.centos6:latest
     - docker run -it -d --name build schmidtw/webpa.builder.centos6 bash
-    - docker exec build git clone https://github.com/Comcast/petasos.git
+    - docker exec build git clone https://github.com/sholaday/petasos.git
 
 script:
     - docker exec build bash -c "pushd petasos; git fetch; git checkout travis-testing; popd"
