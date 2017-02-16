@@ -4,7 +4,7 @@ echo "Hello world."
 
 release=`git describe --abbrev=0 --tags`
 echo $release
-echo $TRAVIS_BUILD_NUMBER
+echo $BUILD_NUMBER
 
 # release="${v%.*}.$((${v##*.}+1))"
 # echo $release

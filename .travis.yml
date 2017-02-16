@@ -7,7 +7,7 @@ services:
 
 before_install:
     - docker pull schmidtw/webpa.builder.centos6:latest
-    - docker run -it -d --name build schmidtw/webpa.builder.centos6 bash
+    - docker run -it -e BUILD_NUMBER=$TRAVIS_BUILD_NUMBER -d --name build schmidtw/webpa.builder.centos6 bash
     - docker exec build git clone https://github.com/sholaday/petasos.git
 
 script:
