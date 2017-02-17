@@ -5,6 +5,7 @@ touch versionno.txt
 
 git for-each-ref --sort=-authordate refs/tags | \
     while read entry; do
+        echo $entry
         tag=`echo $entry | awk '{print $NF}'`
         tag=`echo $tag | awk -F/ '{print $NF}'`
         if [[ "$tag" != *"-"* ]]; then
