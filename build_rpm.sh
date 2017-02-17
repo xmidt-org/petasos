@@ -1,21 +1,22 @@
 #!/bin/bash
 
 echo "Hello world."
-tag="temp"
+touch versionno.txt
 
 git for-each-ref --sort=-authordate refs/tags | \
     while read entry; do
         tag=`echo $entry | awk '{print $NF}'`
         tag=`echo $tag | awk -F/ '{print $NF}'`
         if [[ "$tag" != *"-"* ]]; then
-            echo "Found previous release: $tag..."
+            echo "$tag" > versionno.txt
             break
         fi
     done
 
-echo "$tag"
-filename=`echo "$tag" | awk -F. '{$NF+=1; OFS="."; print $0}'`
-echo $filename
+release=`cat versionno.txt`
+rm versionno.txt
+
+filename=`echo "$release" | awk -F. '{$NF+=1; OFS="."; print $0}'`
 filename+="-${BUILD_NUMBER}alpha"
 echo $filename
 
