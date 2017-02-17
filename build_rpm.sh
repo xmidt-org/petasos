@@ -3,6 +3,8 @@
 echo "Hello world."
 touch versionno.txt
 
+echo $(git tag -l)
+
 git for-each-ref --sort=-authordate refs/tags | \
     while read entry; do
         echo $entry
