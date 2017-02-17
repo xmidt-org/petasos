@@ -1,13 +1,22 @@
 #!/bin/bash
 
 echo "Hello world."
+tag="temp"
 
-release=`git describe --abbrev=0 --tags`
+git for-each-ref --sort=-authordate refs/tags | \
+    while read entry; do
+        tag=`echo $entry | awk '{print $NF}'`
+        tag=`echo $tag | awk -F/ '{print $NF}'`
+        if [[ "$tag" != *"-"* ]]; then
+            echo "Found previous release: $tag..."
+            break
+        fi
+    done
 
-filename=`echo "$release" | awk -F. '{$NF+=1; OFS="."; print $0}'`
+echo "$tag"
+filename=`echo "$tag" | awk -F. '{$NF+=1; OFS="."; print $0}'`
+echo $filename
 filename+="-${BUILD_NUMBER}alpha"
-
-echo $release
 echo $filename
 
 # echo "Building the petasos rpm..."
