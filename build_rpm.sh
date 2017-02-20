@@ -10,8 +10,11 @@ tags=($taglist)
 echo ${#tags[@]}
 
 for ((i=${#tags[@]}-1; i >=0; i--)); do
-    echo "Element:"
-    echo ${tags[i]}
+    if [[ "${tags[i]}" != *"alpha"* ]]; then
+        echo "Element:"
+        echo ${tags[i]}
+        break
+    fi
 done
 
 IFS=$OIFS
