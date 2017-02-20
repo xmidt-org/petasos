@@ -27,9 +27,12 @@ fi
 
 IFS=$OIFS
 
-new_release=`echo "$release" | awk -F. '{$NF+=1; OFS="."; print $0}'`
+release=`echo "$release" | awk -F. '{$NF+=1; OFS="."; print $0}'`
+new_release=$release
 new_release+="-${BUILD_NUMBER}alpha"
+release=`echo "$release" | awk -F'v' '{print $2}'`
 echo "Issuing release $new_release..."
+echo "New base version: $release..."
 
 echo "Building the petasos rpm..."
 
@@ -42,5 +45,5 @@ pushd /root/rpmbuild
 ls -R
 popd
 
-rpmbuild -ba --define "_releaseno $new_release" petasos.spec
+rpmbuild -ba --define "_ver $release" --define "_releaseno ${BUILD_NUMBER}alpha" --define "_fullver $new_release" petasos.spec
 
