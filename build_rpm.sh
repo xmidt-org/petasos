@@ -37,7 +37,7 @@ echo "New base version: $release..."
 echo "Building the petasos rpm..."
 
 pushd ..
-cp petasos petasos-$release
+cp -r petasos petasos-$release
 tar -czvf petasos-$new_release.tar.gz petasos-$release
 mv petasos-$new_release.tar.gz /root/rpmbuild/SOURCES
 rm -rf petasos-$release
