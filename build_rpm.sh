@@ -42,6 +42,5 @@ pushd /root/rpmbuild
 ls -R
 popd
 
-export RELEASE_NO=$new_release
-rpmbuild -ba petasos.spec
+rpmbuild -ba --define '_releaseno $new_release' petasos.spec
 
