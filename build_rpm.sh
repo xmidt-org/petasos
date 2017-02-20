@@ -1,21 +1,25 @@
 #!/bin/bash
 
+echo "Adjusting build number..."
+
 OIFS=$IFS
 IFS='
 
 '
 
+release=""
+
 taglist=`git tag -l`
 tags=($taglist)
-echo ${#tags[@]}
 
 for ((i=${#tags[@]}-1; i >=0; i--)); do
     if [[ "${tags[i]}" != *"alpha"* ]]; then
-        echo "Element:"
-        echo ${tags[i]}
+        release=${tags[i]}
         break
     fi
 done
+
+echo "Most recent release tag: $release"
 
 IFS=$OIFS
 
