@@ -29,11 +29,14 @@ IFS=$OIFS
 
 new_release=`echo "$release" | awk -F. '{$NF+=1; OFS="."; print $0}'`
 new_release+="-${BUILD_NUMBER}alpha"
-echo "Issuing release $new_release..."
+echo "Setting $new_release as environment variable: RELEASE_NO..."
+export RELEASE_NO=$new_release
 
-echo "Building the petasos rpm..."
-docker exec build bash -c "pushd petasos; git fetch; git checkout travis-testing; popd"
-docker exec build bash -c "mv petasos petasos-$new_release; tar -czvf petasos-$new_release.tar.gz petasos-$new_release; mv petasos-$new_release.tar.gz /root/rpmbuild/SOURCES"
-docker exec build bash -c "pushd /root/rpmbuild; ls -R; popd"
-docker exec build bash -c "pushd petasos-$new_release; rpmbuild -ba petasos.spec; popd"
+# echo "Building the petasos rpm..."
+# mv petasos petasos-$new_release
+# tar -czvf petasos-$new_release.tar.gz petasos-$new_release
+# mv petasos-$new_release.tar.gz /root/rpmbuild/SOURCES
+# 
+# docker exec build bash -c "pushd /root/rpmbuild; ls -R; popd"
+# docker exec build bash -c "pushd petasos-$new_release; rpmbuild -ba petasos.spec; popd"
 
