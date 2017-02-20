@@ -11,8 +11,8 @@ before_install:
 script:
     - docker exec build bash -c "pushd petasos; git fetch; git checkout travis-testing; popd"
     - docker exec build bash -c "pushd petasos; ./build_rpm.sh; popd"
-    - docker exec build bash -c "pushd /root/rpmbuild; ls -R; popd"
     - docker exec build bash -c "mv petasos petasos-$RELEASE_NO; tar -czvf petasos-$RELEASE_NO.tar.gz petasos-$RELEASE_NO; mv petasos-$RELEASE_NO.tar.gz /root/rpmbuild/SOURCES"
+    - docker exec build bash -c "pushd /root/rpmbuild; ls -R; popd; echo \"$RELEASE_NO\""
     - docker exec build bash -c "pushd petasos-$RELEASE_NO; rpmbuild -ba petasos.spec; popd"
 
 # after_success:
