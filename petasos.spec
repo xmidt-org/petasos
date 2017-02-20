@@ -1,14 +1,14 @@
 %define debug_package %{nil}
 
 Name:       petasos
-Version:    1.1.0
+Version:    %{RELEASE_NO}
 Release:    1%{?dist}
 Summary:    The WebPA HTTP redirector component.
 
 Group:      System Environment/Daemons
 License:    ASL 2.0
 URL:        https://github.com/Comcast/petasos
-Source0:    %{name}-%{version}.tar.gz
+Source0:    %{name}-%{RELEASE_NO}.tar.gz
 
 BuildRequires:  golang >= 1.7
 Requires:       supervisor
