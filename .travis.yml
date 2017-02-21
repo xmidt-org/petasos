@@ -20,19 +20,20 @@ after_success:
     - docker cp build:/versionno.txt .
     - BINARY_NAME=`ls x86_64/`
     - RELEASE_TAG=`cat versionno.txt`
-    - git clone https://github.com/sholaday/petasos.git
-    - cd petasos
-    - git config credential.helper "store --file=.git/credentials"
-    - echo "https://${AUTH_TOKEN_BUILD}:@github.com" > .git/credentials
-    - RELEASE_HASH=`git rev-parse origin/master`
-    - git tag $RELEASE_TAG $RELEASE_HASH
-    - git push --tags
+    # - git clone https://github.com/sholaday/petasos.git
+    # - pushd petasos
+    # - git config credential.helper "store --file=.git/credentials"
+    # - echo "https://${AUTH_TOKEN_BUILD}:@github.com" > .git/credentials
+    # - RELEASE_HASH=`git rev-parse origin/master`
+    # - git tag $RELEASE_TAG $RELEASE_HASH
+    # - git push --tags
+    # - popd
 
 deploy:
   provider: releases
   prerelease: true
   api_key: $AUTH_TOKEN_BUILD
-  file: ~/build/sholaday/petasos/x86_64/$BINARY_NAME
+  file: x86_64/$BINARY_NAME
   skip_cleanup: true
   # on:
   #   tags: false
