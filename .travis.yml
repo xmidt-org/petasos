@@ -16,12 +16,12 @@ after_success:
     - docker cp build:/root/rpmbuild/RPMS/x86_64 .
     - docker cp build:/versionno.txt .
     - BINARY_NAME=`ls x86_64/`
-    - RELEASE_TAG=`cat versionno.txt`
-    - git clone https://github.com/sholaday/petasos.git
-    - pushd petasos
-    - git tag $RELEASE_TAG
-    - git push --tags
-    - popd
+      #    - RELEASE_TAG=`cat versionno.txt`
+      #    - git clone https://github.com/sholaday/petasos.git
+      #    - pushd petasos
+      #    - git tag $RELEASE_TAG
+      #    - git push --tags
+      #    - popd
 
 deploy:
   provider: releases
@@ -29,5 +29,5 @@ deploy:
   file: x86_64/$BINARY_NAME
   skip_cleanup: true
   on:
-    tags: true
+    tags: false
 
