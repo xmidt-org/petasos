@@ -9,7 +9,6 @@ before_install:
     - docker exec build git clone https://github.com/sholaday/petasos.git
 
 script:
-    - docker exec build bash -c "pushd petasos; git fetch; git checkout travis-testing; popd"
     - docker exec build bash -c "pushd petasos; ./build_rpm.sh; popd"
 
 after_success:
@@ -18,18 +17,17 @@ after_success:
     - BINARY_NAME=`ls x86_64/`
     - RELEASE_TAG=`cat versionno.txt`
     - git clone https://github.com/sholaday/petasos.git
-    - pushd petasos
+    - cd petasos
     - git config credential.helper "store --file=.git/credentials"
     - echo "https://${AUTH_TOKEN_BUILD}:@github.com" > .git/credentials
     - git tag $RELEASE_TAG
     - git push --tags
-    - popd
 
 deploy:
   provider: releases
   prerelease: true
   api_key: $AUTH_TOKEN_BUILD
-  file: x86_64/$BINARY_NAME
+  file: ~/build/sholaday/petasos/x86_64/$BINARY_NAME
   skip_cleanup: true
   on:
     tags: true
