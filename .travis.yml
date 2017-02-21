@@ -17,7 +17,10 @@ after_success:
     - docker cp build:/versionno.txt .
     - BINARY_NAME=`ls x86_64/`
     - RELEASE_TAG=`cat versionno.txt`
+    - git clone https://github.com/sholaday/petasos.git
+    - pushd petasos
     - git tag $RELEASE_TAG
+    - popd
 
 deploy:
   provider: releases
