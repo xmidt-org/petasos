@@ -3,6 +3,10 @@ sudo: required
 services:
     - docker
 
+branches:
+    only:
+    - master
+
 before_install:
     - docker pull schmidtw/webpa.builder.centos6:latest
     - docker run -it -e BUILD_NUMBER=$TRAVIS_BUILD_NUMBER -d --name build schmidtw/webpa.builder.centos6 bash
@@ -31,5 +35,4 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-    branch: master
 
