@@ -11,9 +11,8 @@ before_install:
 script:
     - docker exec build bash -c "pushd petasos; git fetch; git checkout travis-testing; popd"
     - docker exec build bash -c "pushd petasos; ./build_rpm.sh; popd"
-      #     - docker exec build bash -c "mv petasos petasos-$RELEASE_NO; tar -czvf petasos-$RELEASE_NO.tar.gz petasos-$RELEASE_NO; mv petasos-$RELEASE_NO.tar.gz /root/rpmbuild/SOURCES"
-      #     - docker exec build bash -c "pushd petasos-$RELEASE_NO; rpmbuild -ba petasos.spec; popd"
 
-# after_success:
-#     - bash <(curl -s https://codecov.io/bash)
-#     - rpmbuild -bb --define "_buildnumber $TRAVIS_BUILD_NUMBER" petasos.spec
+after_success:
+    - docker cp build:/root/rpmbuild/RPMS/x86_64 .
+    - BINARY_NAME=`ls x86_64/`
+

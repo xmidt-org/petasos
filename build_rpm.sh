@@ -43,9 +43,5 @@ mv petasos-$new_release.tar.gz /root/rpmbuild/SOURCES
 rm -rf petasos-$release
 popd
 
-pushd /root/rpmbuild
-ls -R
-popd
-
 rpmbuild -ba --define "_ver $release" --define "_releaseno ${BUILD_NUMBER}alpha" --define "_fullver $new_release" petasos.spec
 
