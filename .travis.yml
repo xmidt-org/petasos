@@ -16,3 +16,11 @@ after_success:
     - docker cp build:/root/rpmbuild/RPMS/x86_64 .
     - BINARY_NAME=`ls x86_64/`
 
+deploy:
+  provider: releases
+  api_key: $AUTH_TOKEN_BUILD
+  file: x86_64/BINARY_NAME
+  skip_cleanup: true
+  on:
+    tags: true
+
