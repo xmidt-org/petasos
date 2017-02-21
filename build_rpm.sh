@@ -44,4 +44,5 @@ rm -rf petasos-$release
 popd
 
 rpmbuild -ba --define "_ver $release" --define "_releaseno ${BUILD_NUMBER}alpha" --define "_fullver $new_release" petasos.spec
+git tag $new_release
 
