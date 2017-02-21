@@ -25,7 +25,6 @@ after_success:
     - git config credential.helper "store --file=.git/credentials"
     - echo "https://${AUTH_TOKEN_BUILD}:@github.com" > .git/credentials
     - git tag $RELEASE_TAG
-    - git push --tags
 
 deploy:
   provider: releases
