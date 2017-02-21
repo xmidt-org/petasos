@@ -19,7 +19,7 @@ after_success:
     - docker cp build:/root/rpmbuild/RPMS/x86_64 .
     - docker cp build:/versionno.txt .
     - BINARY_NAME=`ls x86_64/`
-    - RELEASE_TAG=`cat versionno.txt`
+    - TRAVIS_TAG=`cat versionno.txt`
     # - git clone https://github.com/sholaday/petasos.git
     # - pushd petasos
     # - git config credential.helper "store --file=.git/credentials"
