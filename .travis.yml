@@ -1,18 +1,33 @@
-dist: trusty
 sudo: required
 
-language: go
-go: 
-    - 1.7.3
-
-env:
-    - TEST_DIR=src/petasos
+services:
+    - docker
 
 before_install:
-    - sudo pip install codecov
+    - docker pull schmidtw/webpa.builder.centos6:latest
+    - docker run -it -e BUILD_NUMBER=$TRAVIS_BUILD_NUMBER -d --name build schmidtw/webpa.builder.centos6 bash
+    - docker exec build git clone https://github.com/sholaday/petasos.git
 
 script:
-    - cd $TEST_DIR && go test -coverprofile=coverage.txt
+    - docker exec build bash -c "pushd petasos; git fetch; git checkout travis-testing; popd"
+    - docker exec build bash -c "pushd petasos; ./build_rpm.sh; popd"
 
 after_success:
-    - bash <(curl -s https://codecov.io/bash)
+    - docker cp build:/root/rpmbuild/RPMS/x86_64 .
+    - docker cp build:/versionno.txt .
+    - BINARY_NAME=`ls x86_64/`
+      #    - RELEASE_TAG=`cat versionno.txt`
+      #    - git clone https://github.com/sholaday/petasos.git
+      #    - pushd petasos
+      #    - git tag $RELEASE_TAG
+      #    - git push --tags
+      #    - popd
+
+deploy:
+  provider: releases
+  api_key: $AUTH_TOKEN_BUILD
+  file: x86_64/$BINARY_NAME
+  skip_cleanup: true
+  on:
+    tags: false
+
