@@ -34,6 +34,6 @@ deploy:
   api_key: $AUTH_TOKEN_BUILD
   file: ~/build/sholaday/petasos/x86_64/$BINARY_NAME
   skip_cleanup: true
-  on:
-    tags: true
+  # on:
+  #   tags: false
 
