@@ -3,7 +3,7 @@
 Name:       petasos
 Version:    %{_ver}
 Release:    %{_releaseno}%{?dist}
-Summary:    The WebPA HTTP redirector component.
+Summary:    The Webpa HTTP redirector component.
 
 Group:      System Environment/Daemons
 License:    ASL 2.0
@@ -14,7 +14,7 @@ BuildRequires:  golang >= 1.7
 Requires:       supervisor
 
 %description
-
+The Webpa HTTP redirector component.
 
 %prep
 %setup -q
