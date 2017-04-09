@@ -1,5 +1,5 @@
-hash: 7155ab405fde34efcb59c94290731abb41fa6ca30a1c9c33bfbf20e7e1eb7749
-updated: 2017-02-01T15:41:47.859923324-08:00
+hash: 76f0ee3020e5a73ab4c676b8e419d20cdb283aab35acbc6f0fb3d147aeb9298e
+updated: 2017-04-09T16:05:57.947441573-07:00
 imports:
 - name: github.com/billhathaway/consistentHash
   version: addea16d2229dba874111898b45be7f4a78af631
@@ -8,11 +8,12 @@ imports:
   subpackages:
   - linux
 - name: github.com/Comcast/webpa-common
-  version: 5de00e3ce1afb3eb2e08664e0e8c9c3bd3e738ff
+  version: e6275e251ccc388a3f0dacf2c26e07f2bb6f387c
   subpackages:
   - concurrent
   - device
   - health
+  - httperror
   - logging
   - logging/golog
   - server
@@ -23,7 +24,7 @@ imports:
 - name: github.com/gorilla/websocket
   version: 3ab3a8b8831546bd18fd182c20687ca853b2bb13
 - name: github.com/hashicorp/hcl
-  version: 88e9565e9965f4054f86c72ff1ad1bb50e560d6f
+  version: 372e8ddaa16fd67e371e9323807d056b799360af
   subpackages:
   - hcl/ast
   - hcl/parser
@@ -47,7 +48,7 @@ imports:
 - name: github.com/pelletier/go-buffruneio
   version: df1e16fde7fc330a0ca68167c23bf7ed6ac31d6d
 - name: github.com/pelletier/go-toml
-  version: a1f048ba24490f9b0674a67e1ce995d685cddf4a
+  version: d1fa2118c12c44e4f5004da216d1efad10cb4924
 - name: github.com/philhofer/fwd
   version: 98c11a7a6ec829d672b03833c3d69a7fae1ca972
 - name: github.com/samuel/go-zookeeper
