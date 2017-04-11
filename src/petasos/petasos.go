@@ -44,7 +44,7 @@ func petasos(arguments []string) int {
 	// Now, initialize the service discovery infrastructure
 	//
 
-	serviceOptions, registrar, err := service.Initialize(logger, nil, v.Sub(service.DiscoveryKey))
+	serviceOptions, registrar, _, err := service.Initialize(logger, nil, v.Sub(service.DiscoveryKey))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to initialize service discovery: %s\n", err)
 		return 2
