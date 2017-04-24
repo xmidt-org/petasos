@@ -63,7 +63,7 @@ func petasos(arguments []string) int {
 		redirectHandler = service.NewRedirectHandler(
 			accessor,
 			http.StatusTemporaryRedirect,
-			device.IDHashParser(device.DefaultDeviceNameHeader),
+			device.IDHashParser,
 			logger,
 		)
 
