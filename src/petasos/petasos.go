@@ -1,174 +1,93 @@
 package main
 
 import (
-	"encoding/json"
-	"flag"
 	"fmt"
-	"github.com/Comcast/golang-discovery-client/service"
 	"github.com/Comcast/webpa-common/concurrent"
-	"github.com/Comcast/webpa-common/fact"
-	"github.com/Comcast/webpa-common/handler"
-	"github.com/Comcast/webpa-common/hash"
-	"github.com/Comcast/webpa-common/health"
-	"github.com/Comcast/webpa-common/logging"
-	"github.com/Comcast/webpa-common/logging/golog"
+	"github.com/Comcast/webpa-common/device"
 	"github.com/Comcast/webpa-common/server"
-	"github.com/billhathaway/consistentHash"
-	"golang.org/x/net/context"
+	"github.com/Comcast/webpa-common/service"
+	"github.com/spf13/pflag"
+	"github.com/spf13/viper"
 	"net/http"
 	_ "net/http/pprof"
 	"os"
-	"os/signal"
 )
 
 const (
+	applicationName       = "petasos"
 	release               = "Developer"
 	defaultVnodeCount int = 211
 )
 
-// Configuration hold all the configurable options for petasos
-type Configuration struct {
-	server.Configuration
-	AlternatePort    uint16                   `json:"altport"`
-	LoggerFactory    golog.LoggerFactory      `json:"log"`
-	DiscoveryBuilder service.DiscoveryBuilder `json:"discovery"`
-	VnodeCount       int                      `json:"vnodeCount"`
-}
+// petasos is the driver function for Petasos.  It performs everything main() would do,
+// except for obtaining the command-line arguments (which are passed to it).
+func petasos(arguments []string) int {
+	//
+	// Initialize the server environment: command-line flags, Viper, logging, and the WebPA instance
+	//
 
-func (c *Configuration) AlternateAddress() (string, bool) {
-	if c.AlternatePort > 0 {
-		return fmt.Sprintf(":%d", c.AlternatePort), true
-	}
+	var (
+		f = pflag.NewFlagSet(applicationName, pflag.ContinueOnError)
+		v = viper.New()
 
-	return "", false
-}
+		logger, webPA, err = server.Initialize(applicationName, arguments, f, v)
+	)
 
-func (c *Configuration) String() string {
-	data, err := json.Marshal(c)
 	if err != nil {
-		return err.Error()
+		fmt.Fprintf(os.Stderr, "Unable to initialize Viper environment: %s\n", err)
+		return 1
 	}
 
-	return string(data)
+	logger.Info("Using configuration file: %s", v.ConfigFileUsed())
+
+	//
+	// Now, initialize the service discovery infrastructure
+	//
+
+	serviceOptions, registrar, _, err := service.Initialize(logger, nil, v.Sub(service.DiscoveryKey))
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to initialize service discovery: %s\n", err)
+		return 2
+	}
+
+	logger.Info("Service options: %#v", serviceOptions)
+
+	var (
+		accessor     = service.NewUpdatableAccessor(serviceOptions, nil)
+		subscription = service.Subscription{
+			Logger:    logger,
+			Registrar: registrar,
+			Listener:  accessor.Update,
+		}
+
+		redirectHandler = service.NewRedirectHandler(
+			accessor,
+			http.StatusTemporaryRedirect,
+			device.IDHashParser,
+			logger,
+		)
+
+		_, runnable = webPA.Prepare(logger, redirectHandler)
+		signals     = make(chan os.Signal, 1)
+	)
+
+	if err := subscription.Run(); err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to run subscription: %s", err)
+		return 3
+	}
+
+	//
+	// Execute the runnable, which runs all the servers, and wait for a signal
+	//
+
+	if err := concurrent.Await(runnable, signals); err != nil {
+		fmt.Fprintf(os.Stderr, "Error when starting %s: %s", applicationName, err)
+		return 4
+	}
+
+	return 0
 }
 
 func main() {
-	var configurationFile string
-	flag.StringVar(&configurationFile, "f", "petasos.cfg.json", "The config file")
-	flag.Parse()
-
-	configuration := &Configuration{}
-	if err := server.ReadConfigurationFile(configurationFile, configuration); err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to read configuration file: %v\n", err)
-		os.Exit(1)
-	}
-
-	logger, err := configuration.LoggerFactory.NewLogger("petasos")
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Logger could not be created: %v\n", err)
-		os.Exit(1)
-	}
-
-	if len(configuration.DiscoveryBuilder.Watches) != 1 {
-		logger.Error("There must be exactly (1) watched service")
-		os.Exit(1)
-	}
-
-	watchedServiceName := configuration.DiscoveryBuilder.Watches[0]
-	vnodeCount := configuration.VnodeCount
-	if vnodeCount < 1 {
-		vnodeCount = defaultVnodeCount
-	}
-
-	logger.Info("Using configuration: %s", configuration)
-
-	os.Exit(func() int {
-		serviceHashHolder := &hash.ServiceHashHolder{}
-		printlogger := logging.PrintLogger{logger}
-		discovery, err := configuration.DiscoveryBuilder.New(printlogger)
-		if err != nil {
-			logger.Error("Unable to create discovery client: %s", err)
-			return 1
-		}
-
-		discovery.AddListener(
-			watchedServiceName,
-			service.ListenerFunc(func(serviceName string, instances service.Instances) {
-				logger.Info("Rehashing service nodes [%s]: %s", serviceName, instances)
-				newHash := consistentHash.New()
-				newHash.SetVnodeCount(vnodeCount)
-				instances.ToKeys(service.HttpAddress, newHash)
-				serviceHashHolder.Update(newHash)
-			}),
-		)
-
-		petasosHealth := health.New(
-			configuration.HealthCheckInterval(),
-			logger,
-			handler.TotalRequestsReceived,
-			handler.TotalRequestSuccessfullyServiced,
-			handler.TotalRequestDenied,
-		)
-
-		healthServer := (&server.Builder{
-			Name:    "petasos-health",
-			Address: configuration.HealthAddress(),
-			Logger:  logger,
-			Handler: petasosHealth,
-		}).Build()
-
-		pprofServer := (&server.Builder{
-			Name:    "petasos-pprof",
-			Address: configuration.PprofAddress(),
-			Logger:  logger,
-			Handler: http.DefaultServeMux,
-		}).Build()
-
-		ctx := fact.SetLogger(context.Background(), logger)
-		petasosHandler := handler.Chain{
-			handler.Listen(handler.NewHealthRequestListener(petasosHealth)),
-			handler.DeviceId(),
-			handler.Convey(),
-		}.Decorate(ctx, handler.Hash(serviceHashHolder))
-
-		petasosPrimaryServer := (&server.Builder{
-			Name:            "petasos",
-			Address:         configuration.PrimaryAddress(),
-			CertificateFile: configuration.CertificateFile,
-			KeyFile:         configuration.KeyFile,
-			Logger:          logger,
-			Handler:         petasosHandler,
-		}).Build()
-
-		runnables := concurrent.RunnableSet{
-			discovery,
-			petasosHealth,
-			healthServer,
-			pprofServer,
-			petasosPrimaryServer,
-		}
-
-		if alternateAddress, ok := configuration.AlternateAddress(); ok {
-			runnables = append(
-				runnables,
-				(&server.Builder{
-					Name:    "petasos-alt",
-					Address: alternateAddress,
-					Logger:  logger,
-					Handler: petasosHandler,
-				}).Build(),
-			)
-		}
-
-		signals := make(chan os.Signal, 1)
-		signal.Notify(signals, os.Interrupt)
-		err = concurrent.Await(runnables, signals)
-		if err != nil {
-			logger.Error("Petasos exiting: %v", err)
-		} else {
-			logger.Info("Petasos exiting")
-		}
-
-		return 0
-	}())
+	os.Exit(petasos(os.Args))
 }

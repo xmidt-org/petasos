@@ -1,0 +1,24 @@
+{
+	"primary": {
+		"address": ":9090"
+	},
+
+	"health": {
+		"address": ":9999"
+	},
+
+	"pprof": {
+		"address": ":9191"
+	},
+	
+	"discovery": {
+		"servers": ["localhost:2181"],
+		"serviceName": "talaria",
+		"environment": "dev"
+	},
+	
+	"log" : {
+		"file"      : "console",
+		"level"     : "DEBUG"
+	}
+}
