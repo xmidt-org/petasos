@@ -44,7 +44,10 @@ popd
 %{__install} -p etc/%{name}/supervisord.conf %{buildroot}%{_sysconfdir}/%{name}/supervisord.conf
 
 # Create Logging Location
-%{__install} -d %{buildroot}%{_localstatedir}/%{name}
+%{__install} -d %{buildroot}%{_localstatedir}/log/%{name}
+
+# Create Runtime Details Location
+%{__install} -d %{buildroot}%{_localstatedir}/run/%{name}
 
 
 %files
