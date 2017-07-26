@@ -40,7 +40,7 @@ popd
 
 # Install Configuration
 %{__install} -d %{buildroot}%{_sysconfdir}/%{name}
-%{__install} -p etc/%{name}/%{name}.cfg %{buildroot}%{_sysconfdir}/%{name}/%{name}.cfg
+%{__install} -p etc/%{name}/%{name}.json %{buildroot}%{_sysconfdir}/%{name}/%{name}.json
 %{__install} -p etc/%{name}/supervisord.conf %{buildroot}%{_sysconfdir}/%{name}/supervisord.conf
 
 # Create Logging Location
@@ -59,11 +59,14 @@ popd
 
 # Configuration
 %dir %{_sysconfdir}/%{name}
-%config %attr(644, petasos, petasos) %{_sysconfdir}/%{name}/%{name}.cfg
+%config %attr(644, petasos, petasos) %{_sysconfdir}/%{name}/%{name}.json
 %config %attr(644, petasos, petasos) %{_sysconfdir}/%{name}/supervisord.conf
 
 # Logging Location
-%dir %{_localstatedir}/%{name}
+%dir %{_localstatedir}/log/%{name}
+
+# Runtime Details Location
+%dir %{_localstatedir}/run/%{name}
 
 %pre
 # If app user does not exist, create
