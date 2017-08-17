@@ -2,7 +2,7 @@ package: .
 homepage: https://github.com/Comcast/petasos
 import:
 - package: github.com/Comcast/webpa-common
-  version: 941d20f74a51751286a478074e5cc04b73ccfbd9
+  version: dfa65be4308dd2cb47648d02aaeda1ae9090b12d
   subpackages:
   - concurrent
   - device

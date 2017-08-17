@@ -2,15 +2,16 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+	_ "net/http/pprof"
+	"os"
+
 	"github.com/Comcast/webpa-common/concurrent"
 	"github.com/Comcast/webpa-common/device"
 	"github.com/Comcast/webpa-common/server"
 	"github.com/Comcast/webpa-common/service"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
-	"net/http"
-	_ "net/http/pprof"
-	"os"
 )
 
 const (
@@ -67,7 +68,7 @@ func petasos(arguments []string) int {
 			logger,
 		)
 
-		_, runnable = webPA.Prepare(logger, redirectHandler)
+		_, runnable = webPA.Prepare(logger, nil, redirectHandler)
 		signals     = make(chan os.Signal, 1)
 	)
 
