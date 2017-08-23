@@ -23,7 +23,7 @@ The Webpa HTTP redirector component.
 %build
 export GOPATH=$(pwd)
 pushd src
-glide install
+glide install --strip-vendor
 cd petasos
 go build %{name}
 popd
