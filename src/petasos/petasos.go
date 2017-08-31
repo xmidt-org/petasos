@@ -8,6 +8,7 @@ import (
 
 	"github.com/Comcast/webpa-common/concurrent"
 	"github.com/Comcast/webpa-common/device"
+	"github.com/Comcast/webpa-common/logging"
 	"github.com/Comcast/webpa-common/server"
 	"github.com/Comcast/webpa-common/service"
 	"github.com/spf13/pflag"
@@ -39,8 +40,6 @@ func petasos(arguments []string) int {
 		return 1
 	}
 
-	logger.Info("Using configuration file: %s", v.ConfigFileUsed())
-
 	//
 	// Now, initialize the service discovery infrastructure
 	//
@@ -51,7 +50,7 @@ func petasos(arguments []string) int {
 		return 2
 	}
 
-	logger.Info("Service options: %#v", serviceOptions)
+	logging.Info(logger).Log("configurationFile", v.ConfigFileUsed(), "serviceOptions", serviceOptions)
 
 	var (
 		accessor     = service.NewUpdatableAccessor(serviceOptions, nil)
