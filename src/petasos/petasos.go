@@ -44,37 +44,42 @@ func petasos(arguments []string) int {
 	// Now, initialize the service discovery infrastructure
 	//
 
-	serviceOptions, registrar, _, err := service.Initialize(logger, nil, v.Sub(service.DiscoveryKey))
+	serviceOptions, err := service.FromViper(service.Sub(v))
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to read service discovery options: %s\n", err)
+		return 2
+	}
+
+	logging.Info(logger).Log("configurationFile", v.ConfigFileUsed(), "serviceOptions", serviceOptions)
+	serviceOptions.Logger = logger
+	services, err := service.New(serviceOptions)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to initialize service discovery: %s\n", err)
 		return 2
 	}
 
-	logging.Info(logger).Log("configurationFile", v.ConfigFileUsed(), "serviceOptions", serviceOptions)
+	instancer, err := services.NewInstancer()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to obtain service discovery instancer: %s\n", err)
+		return 2
+	}
 
 	var (
-		accessor     = service.NewUpdatableAccessor(serviceOptions, nil)
-		subscription = service.Subscription{
-			Logger:    logger,
-			Registrar: registrar,
-			Listener:  accessor.Update,
-		}
+		accessor     = new(service.UpdatableAccessor)
+		subscription = service.Subscribe(serviceOptions, instancer)
 
-		redirectHandler = service.NewRedirectHandler(
-			accessor,
-			http.StatusTemporaryRedirect,
-			device.IDHashParser,
-			logger,
-		)
+		redirectHandler = &service.RedirectHandler{
+			Logger:       logger,
+			KeyFunc:      device.IDHashParser,
+			Accessor:     accessor,
+			RedirectCode: http.StatusTemporaryRedirect,
+		}
 
 		_, runnable = webPA.Prepare(logger, nil, redirectHandler)
 		signals     = make(chan os.Signal, 1)
 	)
 
-	if err := subscription.Run(); err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to run subscription: %s", err)
-		return 3
-	}
+	accessor.Consume(subscription)
 
 	//
 	// Execute the runnable, which runs all the servers, and wait for a signal
