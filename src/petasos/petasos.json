@@ -11,10 +11,10 @@
 		"address": ":9191"
 	},
 	
-	"discovery": {
+	"service": {
 		"servers": ["localhost:2181"],
-		"serviceName": "talaria",
-		"environment": "dev"
+		"path": "/xmidt/local",
+		"serviceName": "talaria"
 	},
 	
 	"log" : {
