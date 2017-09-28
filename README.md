@@ -20,11 +20,11 @@ The main package for this application is petasos.
 1. Import the public GPG key (replace `0.0.1-65` with the release you want)
 
 ```
-rpm --import https://github.com/Comcast/petasos/releases/download/v0.0.1-65/RPM-GPG-KEY-comcast-xmidt
+rpm --import https://github.com/Comcast/petasos/releases/download/0.0.1-65/RPM-GPG-KEY-comcast-xmidt
 ```
 
 2. Install the rpm with yum (so it installs any/all dependencies for you)
 
 ```
-yum install https://github.com/Comcast/petasos/releases/download/v0.0.1-65/petasos-0.0.1-65.el6.x86_64.rpm
+yum install https://github.com/Comcast/petasos/releases/download/0.0.1-65/petasos-0.0.1-65.el6.x86_64.rpm
 ```
