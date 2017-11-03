@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	_ "net/http/pprof"
 	"os"
@@ -33,10 +32,12 @@ func petasos(arguments []string) int {
 		v = viper.New()
 
 		logger, webPA, err = server.Initialize(applicationName, arguments, f, v)
+		infoLog            = logging.Info(logger)
+		errorLog           = logging.Error(logger)
 	)
 
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to initialize Viper environment: %s\n", err)
+		errorLog.Log(logging.MessageKey(), "Unable to initialize Viper environment", logging.ErrorKey(), err)
 		return 1
 	}
 
@@ -46,21 +47,21 @@ func petasos(arguments []string) int {
 
 	serviceOptions, err := service.FromViper(service.Sub(v))
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to read service discovery options: %s\n", err)
+		errorLog.Log(logging.MessageKey(), "Unable to read service discovery options", logging.ErrorKey(), err)
 		return 2
 	}
 
-	logging.Info(logger).Log("configurationFile", v.ConfigFileUsed(), "serviceOptions", serviceOptions)
+	infoLog.Log("configurationFile", v.ConfigFileUsed(), "serviceOptions", serviceOptions)
 	serviceOptions.Logger = logger
 	services, err := service.New(serviceOptions)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to initialize service discovery: %s\n", err)
+		errorLog.Log(logging.MessageKey(), "Unable to initialize service discovery", logging.ErrorKey(), err)
 		return 2
 	}
 
 	instancer, err := services.NewInstancer()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to obtain service discovery instancer: %s\n", err)
+		errorLog.Log(logging.MessageKey(), "Unable to obtain service discovery instancer", logging.ErrorKey(), err)
 		return 2
 	}
 
@@ -86,7 +87,7 @@ func petasos(arguments []string) int {
 	//
 
 	if err := concurrent.Await(runnable, signals); err != nil {
-		fmt.Fprintf(os.Stderr, "Error when starting %s: %s", applicationName, err)
+		errorLog.Log(logging.MessageKey(), "startup error", "application", applicationName, logging.ErrorKey(), err)
 		return 4
 	}
 
