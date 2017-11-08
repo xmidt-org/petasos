@@ -62,6 +62,7 @@ popd
 
 # Configuration
 %dir %{_sysconfdir}/%{name}
+%config %attr(644, petasos, petasos) %{_sysconfdir}/%{name}/%{name}.env.example
 %config %attr(644, petasos, petasos) %{_sysconfdir}/%{name}/%{name}.json
 %config %attr(644, petasos, petasos) %{_sysconfdir}/%{name}/supervisord.conf
 
