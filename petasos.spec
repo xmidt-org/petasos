@@ -40,6 +40,7 @@ popd
 
 # Install Configuration
 %{__install} -d %{buildroot}%{_sysconfdir}/%{name}
+%{__install} -p etc/%{name}/%{name}.env.example %{buildroot}%{_sysconfdir}/%{name}/%{name}.env.example
 %{__install} -p etc/%{name}/%{name}.json %{buildroot}%{_sysconfdir}/%{name}/%{name}.json
 %{__install} -p etc/%{name}/supervisord.conf %{buildroot}%{_sysconfdir}/%{name}/supervisord.conf
 
@@ -48,7 +49,6 @@ popd
 
 # Create Runtime Details Location
 %{__install} -d %{buildroot}%{_localstatedir}/run/%{name}
-
 
 %files
 %defattr(644, petasos, petasos, 755)
@@ -62,6 +62,7 @@ popd
 
 # Configuration
 %dir %{_sysconfdir}/%{name}
+%config %attr(644, petasos, petasos) %{_sysconfdir}/%{name}/%{name}.env.example
 %config %attr(644, petasos, petasos) %{_sysconfdir}/%{name}/%{name}.json
 %config %attr(644, petasos, petasos) %{_sysconfdir}/%{name}/supervisord.conf
 
@@ -108,4 +109,3 @@ if [ $1 = 0 ]; then
 fi
 
 %changelog
-
