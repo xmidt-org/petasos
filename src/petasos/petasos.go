@@ -47,9 +47,9 @@ func petasos(arguments []string) int {
 		f = pflag.NewFlagSet(applicationName, pflag.ContinueOnError)
 		v = viper.New()
 
-		logger, webPA, err = server.Initialize(applicationName, arguments, f, v)
-		infoLog            = logging.Info(logger)
-		errorLog           = logging.Error(logger)
+		logger, metricsRegistry, webPA, err = server.Initialize(applicationName, arguments, f, v)
+		infoLog                             = logging.Info(logger)
+		errorLog                            = logging.Error(logger)
 	)
 
 	if err != nil {
@@ -92,7 +92,7 @@ func petasos(arguments []string) int {
 			RedirectCode: http.StatusTemporaryRedirect,
 		}
 
-		_, runnable = webPA.Prepare(logger, nil, redirectHandler)
+		_, runnable = webPA.Prepare(logger, nil, metricsRegistry, redirectHandler)
 		signals     = make(chan os.Signal, 1)
 	)
 
