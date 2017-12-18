@@ -1,5 +1,5 @@
-hash: fafefa8fc33d705df1b9b9574587654002e4c8fbd24d8514537e17ac56855f26
-updated: 2017-12-11T10:50:58.914196925-08:00
+hash: 4f6ac5e225b99f0505c1c3f495e28b8fb8707b7f3c053ede129e3b6cfdce29fb
+updated: 2017-12-18T05:46:31.034455684-08:00
 imports:
 - name: github.com/beorn7/perks
   version: 4c0e84591b9aa9e6dcfdf3e020114cd81f89d5f9
@@ -12,18 +12,18 @@ imports:
   subpackages:
   - linux
 - name: github.com/Comcast/webpa-common
-  version: e630982de53ef5a555610825c4dbca78c097549d
+  version: 1c7649af38a0618a95015f49324a067632f4a43c
   subpackages:
   - concurrent
   - convey
   - convey/conveyhttp
   - device
   - health
-  - httperror
   - logging
   - server
   - service
   - wrp
+  - xhttp
   - xmetrics
 - name: github.com/fsnotify/fsnotify
   version: 4da3e2cfbabc9f751898f250b49f2439785783a1
