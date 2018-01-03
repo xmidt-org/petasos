@@ -1,5 +1,5 @@
-hash: 4f6ac5e225b99f0505c1c3f495e28b8fb8707b7f3c053ede129e3b6cfdce29fb
-updated: 2017-12-18T05:46:31.034455684-08:00
+hash: ac0b99c8e8d885c762e94074158c76aeab042582c28ff46af9f8e590e13529c8
+updated: 2018-01-03T15:20:08.983687652-08:00
 imports:
 - name: github.com/beorn7/perks
   version: 4c0e84591b9aa9e6dcfdf3e020114cd81f89d5f9
@@ -12,7 +12,7 @@ imports:
   subpackages:
   - linux
 - name: github.com/Comcast/webpa-common
-  version: 1c7649af38a0618a95015f49324a067632f4a43c
+  version: 62c953026ad3e43f62c6888842873a959b8b348a
   subpackages:
   - concurrent
   - convey
@@ -80,6 +80,8 @@ imports:
   - client/v2
   - models
   - pkg/escape
+- name: github.com/justinas/alice
+  version: 052b8b6c18edb9db317af86806d8e00ebaa94160
 - name: github.com/kr/logfmt
   version: b84e30acd515aadc4b783ad4ff83aff3299bdfe0
 - name: github.com/magiconair/properties
