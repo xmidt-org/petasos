@@ -20,6 +20,7 @@ import (
 	"net/http"
 	_ "net/http/pprof"
 	"os"
+	"os/signal"
 
 	"github.com/Comcast/webpa-common/concurrent"
 	"github.com/Comcast/webpa-common/device"
@@ -95,6 +96,7 @@ func petasos(arguments []string) int {
 		_, runnable = webPA.Prepare(logger, nil, metricsRegistry, redirectHandler)
 		signals     = make(chan os.Signal, 1)
 	)
+	signal.Notify(signals, os.Interrupt, os.Kill)
 
 	accessor.Consume(subscription)
 
