@@ -59,10 +59,8 @@ start() {
 
 stop() {
 	echo -n $"Stopping petasos: "
-	killproc supervisord
-	kill $(cat /var/run/petasos.pid)
+	supervisorctl -c /etc/petasos/supervisord.conf shutdown > /dev/null
 	RETVAL=$?
-	rm -f /var/run/petasos.pid
 	echo
 	[ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/petasos
 }
@@ -86,7 +84,7 @@ case "$1" in
 	[ -f /var/lock/subsys/petasos ] && restart
 	;;
   status)
-	status petasos
+	supervisorctl -c /etc/petasos/supervisord.conf status
 	RETVAL=$?
 	;;
   *)
