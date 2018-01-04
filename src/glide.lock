@@ -1,5 +1,5 @@
-hash: 3d2a90da7a3ce4547376247f4a7e1befadd5e17788a13717ecd25dab98f5de99
-updated: 2018-01-04T11:49:48.061819715-08:00
+hash: 5fe79beadd5b35f82ddc31990dc2f21712ca9b5075164cda1c92c36babd75161
+updated: 2018-01-04T15:50:57.936015228-08:00
 imports:
 - name: github.com/beorn7/perks
   version: 4c0e84591b9aa9e6dcfdf3e020114cd81f89d5f9
@@ -12,7 +12,7 @@ imports:
   subpackages:
   - linux
 - name: github.com/Comcast/webpa-common
-  version: 2c8d0cc40ad1c771d0a6e7ed08fb412ba1659b89
+  version: 49d31397e019541d27795f8543e634ab0846ed82
   subpackages:
   - concurrent
   - convey
@@ -75,7 +75,7 @@ imports:
   - json/scanner
   - json/token
 - name: github.com/influxdata/influxdb
-  version: 176a7e1e98e2d11d2abe7cbe7db565ea7e30b817
+  version: b647c9d29bdafbcfab06a286804b973baf514628
   subpackages:
   - client/v2
   - models
@@ -149,5 +149,5 @@ imports:
 - name: gopkg.in/natefinch/lumberjack.v2
   version: a96e63847dc3c67d17befa69c303767e2f84e54f
 - name: gopkg.in/yaml.v2
-  version: c95af922eae69f190717a0b7148960af8c55a072
+  version: 0e4404da71227dcc02fb1deee803d93e86d08f72
 testImports: []
