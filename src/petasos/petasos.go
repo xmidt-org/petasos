@@ -93,8 +93,8 @@ func petasos(arguments []string) int {
 			RedirectCode: http.StatusTemporaryRedirect,
 		}
 
-		_, runnable = webPA.Prepare(logger, nil, metricsRegistry, redirectHandler)
-		signals     = make(chan os.Signal, 1)
+		_, petasosServer = webPA.Prepare(logger, nil, metricsRegistry, redirectHandler)
+		signals          = make(chan os.Signal, 1)
 	)
 	signal.Notify(signals, os.Interrupt, os.Kill)
 
@@ -103,11 +103,17 @@ func petasos(arguments []string) int {
 	//
 	// Execute the runnable, which runs all the servers, and wait for a signal
 	//
-
-	if err := concurrent.Await(runnable, signals); err != nil {
-		errorLog.Log(logging.MessageKey(), "startup error", "application", applicationName, logging.ErrorKey(), err)
+	waitGroup, shutdown, err := concurrent.Execute(petasosServer)
+	if err != nil {
+		errorLog.Log(logging.MessageKey(), "Unable to start petasos", logging.ErrorKey(), err)
 		return 4
 	}
+
+	signal.Notify(signals)
+	s := server.SignalWait(infoLog, signals, os.Kill, os.Interrupt)
+	errorLog.Log(logging.MessageKey(), "exiting due to signal", "signal", s)
+	close(shutdown)
+	waitGroup.Wait()
 
 	return 0
 }
