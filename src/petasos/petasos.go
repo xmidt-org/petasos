@@ -96,7 +96,6 @@ func petasos(arguments []string) int {
 		_, petasosServer = webPA.Prepare(logger, nil, metricsRegistry, redirectHandler)
 		signals          = make(chan os.Signal, 1)
 	)
-	signal.Notify(signals, os.Interrupt, os.Kill)
 
 	accessor.Consume(subscription)
 
