@@ -48,7 +48,7 @@ func petasos(arguments []string) int {
 		f = pflag.NewFlagSet(applicationName, pflag.ContinueOnError)
 		v = viper.New()
 
-		logger, metricsRegistry, webPA, err = server.Initialize(applicationName, arguments, f, v)
+		logger, metricsRegistry, webPA, err = server.Initialize(applicationName, arguments, f, v, service.Metrics)
 		infoLog                             = logging.Info(logger)
 		errorLog                            = logging.Error(logger)
 	)
@@ -70,6 +70,7 @@ func petasos(arguments []string) int {
 
 	infoLog.Log("configurationFile", v.ConfigFileUsed(), "serviceOptions", serviceOptions)
 	serviceOptions.Logger = logger
+	serviceOptions.MetricsProvider = metricsRegistry
 	services, err := service.New(serviceOptions)
 	if err != nil {
 		errorLog.Log(logging.MessageKey(), "Unable to initialize service discovery", logging.ErrorKey(), err)

@@ -10,7 +10,15 @@
 	"pprof": {
 		"address": ":9191"
 	},
-	
+
+	"metric": {
+		"address": ":9292",
+		"metricsOptions": {
+			"namespace": "xmidt",
+			"subsystem": "petasos"
+		}
+	},
+
 	"service": {
 		"servers": ["localhost:2181"],
 		"path": "/xmidt/local",

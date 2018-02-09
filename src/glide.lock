@@ -1,5 +1,5 @@
-hash: 5fe79beadd5b35f82ddc31990dc2f21712ca9b5075164cda1c92c36babd75161
-updated: 2018-01-04T15:50:57.936015228-08:00
+hash: 679701bd8b95ec95c2044d48bc984f1681e5c10cccc7cccd842a5f8b832f5104
+updated: 2018-02-09T00:07:25.830997337-08:00
 imports:
 - name: github.com/beorn7/perks
   version: 4c0e84591b9aa9e6dcfdf3e020114cd81f89d5f9
@@ -12,7 +12,7 @@ imports:
   subpackages:
   - linux
 - name: github.com/Comcast/webpa-common
-  version: 49d31397e019541d27795f8543e634ab0846ed82
+  version: 46b42ed45a7f6d8624dd1890b4683fe9f246282f
   subpackages:
   - concurrent
   - convey
@@ -26,7 +26,7 @@ imports:
   - xhttp
   - xmetrics
 - name: github.com/fsnotify/fsnotify
-  version: 4da3e2cfbabc9f751898f250b49f2439785783a1
+  version: c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9
 - name: github.com/go-kit/kit
   version: a9ca6725cbbea455e61c6bc8a1ed28e81eb3493b
   subpackages:
@@ -54,7 +54,7 @@ imports:
 - name: github.com/go-stack/stack
   version: 817915b46b97fd7bb80e8ab6b69f01a53ac3eebf
 - name: github.com/golang/protobuf
-  version: 1e59b77b52bf8e4b449a57e6f79f21226d571845
+  version: c65a0412e71e8b9b3bfd22925720d23c0f054237
   subpackages:
   - proto
 - name: github.com/gorilla/context
@@ -62,7 +62,7 @@ imports:
 - name: github.com/gorilla/mux
   version: 392c28fe23e1c45ddba891b0320b3b5df220beea
 - name: github.com/gorilla/websocket
-  version: 3ab3a8b8831546bd18fd182c20687ca853b2bb13
+  version: ea4d1f681babbce9545c9c5f3d5194a789c89f5b
 - name: github.com/hashicorp/hcl
   version: 23c074d0eceb2b8a5bfdbb271ab780cde70f05a8
   subpackages:
@@ -75,7 +75,7 @@ imports:
   - json/scanner
   - json/token
 - name: github.com/influxdata/influxdb
-  version: b647c9d29bdafbcfab06a286804b973baf514628
+  version: 28f3912491a564677bfafc4602aa126023d1bfb2
   subpackages:
   - client/v2
   - models
@@ -91,9 +91,9 @@ imports:
   subpackages:
   - pbutil
 - name: github.com/mitchellh/mapstructure
-  version: 06020f85339e21b2478f756a78e295255ffa4d6a
+  version: b4575eea38cca1123ec2dc90c26529b5c5acfcff
 - name: github.com/pelletier/go-toml
-  version: 0131db6d737cfbbfb678f8b7d92e55e27ce46224
+  version: acdc4509485b587f5e675510c4f2c63e90ff68a8
 - name: github.com/prometheus/client_golang
   version: 967789050ba94deca04a5e84cce8ad472ce313c1
   subpackages:
@@ -104,13 +104,13 @@ imports:
   subpackages:
   - go
 - name: github.com/prometheus/common
-  version: 2e54d0b93cba2fd133edc32211dcc32c06ef72ca
+  version: 89604d197083d4781071d3c65855d24ecfb0a563
   subpackages:
   - expfmt
   - internal/bitbucket.org/ww/goautoneg
   - model
 - name: github.com/prometheus/procfs
-  version: b15cd069a83443be3154b719d0cc9fe8117f09fb
+  version: a6e9df898b1336106c743392c48ee0b71f5c4efa
   subpackages:
   - xfs
 - name: github.com/samuel/go-zookeeper
@@ -120,13 +120,13 @@ imports:
 - name: github.com/spaolacci/murmur3
   version: 0d12bf811670bf6a1a63828dfbd003eded177fce
 - name: github.com/spf13/afero
-  version: 57afd63c68602b63ed976de00dd066ccb3c319db
+  version: bb8f1927f2a9d3ab41c9340aa034f6b803f4359c
   subpackages:
   - mem
 - name: github.com/spf13/cast
   version: acbeb36b902d72a7a4c18e8f3241075e7ab763e4
 - name: github.com/spf13/jwalterweatherman
-  version: 12bd96e66386c1960ab0f74ced1362f66f552f7b
+  version: 7c0cea34c8ece3fbeb2b27ab9b59511d360fb394
 - name: github.com/spf13/pflag
   version: e57e3eeb33f795204c1ca35f56c44f83227c6e66
 - name: github.com/spf13/viper
@@ -137,8 +137,12 @@ imports:
   - codec
 - name: github.com/VividCortex/gohistogram
   version: 51564d9861991fb0ad0f531c99ef602d0f9866e6
+- name: golang.org/x/net
+  version: 5ccada7d0a7ba9aeb5d3aca8d3501b4c2a509fec
+  subpackages:
+  - netutil
 - name: golang.org/x/sys
-  version: a3f2cbd54cf5dfe3fbaccf76375fdb12f67654c8
+  version: af50095a40f9041b3b38960738837185c26e9419
   subpackages:
   - unix
 - name: golang.org/x/text
@@ -149,5 +153,5 @@ imports:
 - name: gopkg.in/natefinch/lumberjack.v2
   version: a96e63847dc3c67d17befa69c303767e2f84e54f
 - name: gopkg.in/yaml.v2
-  version: 0e4404da71227dcc02fb1deee803d93e86d08f72
+  version: d670f9405373e636a5a2765eea47fac0c9bc91a4
 testImports: []
