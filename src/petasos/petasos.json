@@ -20,9 +20,12 @@
 	},
 
 	"service": {
-		"servers": ["localhost:2181"],
-		"path": "/xmidt/local",
-		"serviceName": "talaria"
+		"zookeeper": {
+			"client": {
+				"servers": ["localhost:2181"]
+			},
+			"watches": ["/xmidt/local"]
+		}
 	},
 	
 	"log" : {

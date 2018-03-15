@@ -27,6 +27,8 @@ import (
 	"github.com/Comcast/webpa-common/logging"
 	"github.com/Comcast/webpa-common/server"
 	"github.com/Comcast/webpa-common/service"
+	"github.com/Comcast/webpa-common/service/monitor"
+	"github.com/Comcast/webpa-common/service/servicecfg"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
@@ -62,30 +64,16 @@ func petasos(arguments []string) int {
 	// Now, initialize the service discovery infrastructure
 	//
 
-	serviceOptions, err := service.FromViper(service.Sub(v))
+	e, err := servicecfg.NewEnvironment(logger, v.Sub("service"))
 	if err != nil {
-		errorLog.Log(logging.MessageKey(), "Unable to read service discovery options", logging.ErrorKey(), err)
+		errorLog.Log(logging.MessageKey(), "Unable to initialize service discovery environment", logging.ErrorKey(), err)
 		return 2
 	}
 
-	infoLog.Log("configurationFile", v.ConfigFileUsed(), "serviceOptions", serviceOptions)
-	serviceOptions.Logger = logger
-	serviceOptions.MetricsProvider = metricsRegistry
-	services, err := service.New(serviceOptions)
-	if err != nil {
-		errorLog.Log(logging.MessageKey(), "Unable to initialize service discovery", logging.ErrorKey(), err)
-		return 2
-	}
-
-	instancer, err := services.NewInstancer()
-	if err != nil {
-		errorLog.Log(logging.MessageKey(), "Unable to obtain service discovery instancer", logging.ErrorKey(), err)
-		return 2
-	}
+	infoLog.Log("configurationFile", v.ConfigFileUsed())
 
 	var (
-		accessor     = new(service.UpdatableAccessor)
-		subscription = service.Subscribe(serviceOptions, instancer)
+		accessor = new(service.UpdatableAccessor)
 
 		redirectHandler = &service.RedirectHandler{
 			Logger:       logger,
@@ -98,7 +86,19 @@ func petasos(arguments []string) int {
 		signals          = make(chan os.Signal, 1)
 	)
 
-	accessor.Consume(subscription)
+	_, err = monitor.New(
+		monitor.WithLogger(logger),
+		monitor.WithEnvironment(e),
+		monitor.WithListeners(
+			monitor.NewMetricsListener(metricsRegistry),
+			monitor.NewAccessorListener(e.AccessorFactory(), accessor.Update),
+		),
+	)
+
+	if err != nil {
+		errorLog.Log(logging.MessageKey(), "Unable to start service discovery monitor", logging.ErrorKey(), err)
+		return 3
+	}
 
 	//
 	// Execute the runnable, which runs all the servers, and wait for a signal

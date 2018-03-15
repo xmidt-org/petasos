@@ -1,6 +1,8 @@
 hash: 0e9432d8374b866332439c869459a3e83bc0e06b31619cfe4cc6b981ad18959d
-updated: 2018-03-15T08:59:11.805445338-07:00
+updated: 2018-03-15T09:14:25.928203541-07:00
 imports:
+- name: github.com/armon/go-metrics
+  version: 783273d703149aaeb9897cf58613d5af48861c25
 - name: github.com/beorn7/perks
   version: 4c0e84591b9aa9e6dcfdf3e020114cd81f89d5f9
   subpackages:
@@ -22,10 +24,15 @@ imports:
   - logging
   - server
   - service
+  - service/consul
+  - service/monitor
+  - service/servicecfg
+  - service/zk
   - wrp
   - xhttp
   - xlistener
   - xmetrics
+  - xviper
 - name: github.com/fsnotify/fsnotify
   version: c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9
 - name: github.com/go-kit/kit
@@ -47,6 +54,9 @@ imports:
   - metrics/provider
   - metrics/statsd
   - sd
+  - sd/consul
+  - sd/internal/instance
+  - sd/zk
   - util/conn
 - name: github.com/go-logfmt/logfmt
   version: 390ab7935ee28ec6b286364bba9b4dd6410cb3d5
@@ -62,6 +72,20 @@ imports:
   version: 53c1911da2b537f792e7cafcb446b05ffe33b996
 - name: github.com/gorilla/websocket
   version: ea4d1f681babbce9545c9c5f3d5194a789c89f5b
+- name: github.com/hashicorp/consul
+  version: 9a494b5fb9c86180a5702e29c485df1507a47198
+  subpackages:
+  - api
+- name: github.com/hashicorp/go-cleanhttp
+  version: d5fe4b57a186c716b0e00b8c301cbd9b4182694d
+- name: github.com/hashicorp/go-immutable-radix
+  version: 7f3cd4390caab3250a57f30efdb2a65dd7649ecf
+- name: github.com/hashicorp/go-rootcerts
+  version: 6bb64b370b90e7ef1fa532be9e591a81c3493e00
+- name: github.com/hashicorp/golang-lru
+  version: 0fb14efe8c47ae851c0034ed7a448854d3d34cf3
+  subpackages:
+  - simplelru
 - name: github.com/hashicorp/hcl
   version: 23c074d0eceb2b8a5bfdbb271ab780cde70f05a8
   subpackages:
@@ -73,6 +97,10 @@ imports:
   - json/parser
   - json/scanner
   - json/token
+- name: github.com/hashicorp/serf
+  version: 3b250ce4404edb266330f53fcfc8ad0d0dacfae7
+  subpackages:
+  - coordinate
 - name: github.com/influxdata/influxdb
   version: 8116cded0ca2f737c46800bc59542332b8ae7aa6
   subpackages:
@@ -89,6 +117,8 @@ imports:
   version: c12348ce28de40eed0136aa2b644d0ee0650e56c
   subpackages:
   - pbutil
+- name: github.com/mitchellh/go-homedir
+  version: b8bc1bf767474819792c23f32d8286a45736f1c6
 - name: github.com/mitchellh/mapstructure
   version: 00c29f56e2386353d58c599509e8dc3801b0d716
 - name: github.com/pelletier/go-toml
@@ -103,7 +133,7 @@ imports:
   subpackages:
   - go
 - name: github.com/prometheus/common
-  version: e4aa40a9169a88835b849a6efb71e05dc04b88f0
+  version: 2e54d0b93cba2fd133edc32211dcc32c06ef72ca
   subpackages:
   - expfmt
   - internal/bitbucket.org/ww/goautoneg
@@ -112,6 +142,10 @@ imports:
   version: a6e9df898b1336106c743392c48ee0b71f5c4efa
   subpackages:
   - xfs
+- name: github.com/samuel/go-zookeeper
+  version: c4fab1ac1bec58281ad0667dc3f0907a9476ac47
+  subpackages:
+  - zk
 - name: github.com/spaolacci/murmur3
   version: 0d12bf811670bf6a1a63828dfbd003eded177fce
 - name: github.com/spf13/afero
@@ -133,7 +167,7 @@ imports:
 - name: github.com/VividCortex/gohistogram
   version: 51564d9861991fb0ad0f531c99ef602d0f9866e6
 - name: golang.org/x/sys
-  version: cc7307a45468e49eaf2997c890f14aa03a26917b
+  version: 062cd7e4e68206d8bab9b18396626e855c992658
   subpackages:
   - unix
 - name: golang.org/x/text
