@@ -1,0 +1,46 @@
+{
+	"primary": {
+		"address": ":9090"
+	},
+
+	"health": {
+		"address": ":9999"
+	},
+
+	"pprof": {
+		"address": ":9191"
+	},
+
+	"metric": {
+		"address": ":9292",
+		"metricsOptions": {
+			"namespace": "xmidt",
+			"subsystem": "petasos"
+		}
+	},
+
+	"service": {
+		"consul": {
+			"client": {
+				"address": "consul-asd.xmidt.comcast.net",
+				"scheme": "https",
+				"datacenter": "asd",
+				"httpAuth": {
+					"username": "xmidt-consul",
+					"password": "GetInvolved"
+				}
+			},
+			"watches": [
+				{
+					"service": "talaria"
+				}
+			]
+		}
+	},
+	
+	"log" : {
+		"file"      : "stdout",
+		"level"     : "DEBUG",
+		"json": true
+	}
+}
