@@ -68,6 +68,9 @@ func petasos(arguments []string) int {
 	if err != nil {
 		errorLog.Log(logging.MessageKey(), "Unable to initialize service discovery environment", logging.ErrorKey(), err)
 		return 2
+	} else if e == nil {
+		errorLog.Log(logging.MessageKey(), "Petasos requires service discovery")
+		return 2
 	}
 
 	infoLog.Log("configurationFile", v.ConfigFileUsed())
