@@ -22,6 +22,7 @@
 	"service": {
 		"consul": {
 			"client": {
+				"id": "petasos-dev",
 				"address": "consul-asd.xmidt.comcast.net",
 				"scheme": "https",
 				"datacenter": "asd",
@@ -30,9 +31,11 @@
 					"password": "GetInvolved"
 				}
 			},
+			"disableGenerateIDs": true,
 			"watches": [
 				{
-					"service": "talaria"
+					"service": "talaria",
+					"passingOnly": true
 				}
 			]
 		}
