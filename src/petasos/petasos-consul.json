@@ -27,8 +27,8 @@
 				"scheme": "https",
 				"datacenter": "asd",
 				"httpAuth": {
-					"username": "xmidt-consul",
-					"password": "GetInvolved"
+					"username": "XXXXX",
+					"password": "XXXXX"
 				}
 			},
 			"disableGenerateIDs": true,
