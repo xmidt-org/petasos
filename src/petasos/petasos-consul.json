@@ -22,14 +22,8 @@
 	"service": {
 		"consul": {
 			"client": {
-				"id": "petasos-dev",
-				"address": "consul-asd.xmidt.comcast.net",
-				"scheme": "https",
-				"datacenter": "asd",
-				"httpAuth": {
-					"username": "XXXXX",
-					"password": "XXXXX"
-				}
+				"address": "127.0.0.1:8500",
+				"scheme": "http"
 			},
 			"disableGenerateIDs": true,
 			"watches": [
