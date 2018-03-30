@@ -1,5 +1,5 @@
-hash: 1eb5c389793e364b5947df689ed9cc287fb51a3ce245c4ebaf960a0c2cce6421
-updated: 2018-03-26T20:45:31.979045138-07:00
+hash: 024a2bc42ed86346b990a6ae73cc20a86b93ef84da4bab0e2840d39fda905123
+updated: 2018-03-30T12:11:01.511434662-07:00
 imports:
 - name: github.com/armon/go-metrics
   version: 783273d703149aaeb9897cf58613d5af48861c25
@@ -14,7 +14,7 @@ imports:
   subpackages:
   - linux
 - name: github.com/Comcast/webpa-common
-  version: 42373e6e73341908a4493c65729244be2ae4b743
+  version: 40d57eae21c0a935768684101e9e191c08cfe71c
   subpackages:
   - concurrent
   - convey
@@ -106,7 +106,7 @@ imports:
   subpackages:
   - coordinate
 - name: github.com/influxdata/influxdb
-  version: ef2ba80ce2a1ad95a99aac3cc76f5b75a0a0e758
+  version: 02fd678483446d5da5185a5be77fa31c341edeb7
   subpackages:
   - client/v2
   - models
@@ -195,5 +195,5 @@ imports:
 - name: gopkg.in/natefinch/lumberjack.v2
   version: a96e63847dc3c67d17befa69c303767e2f84e54f
 - name: gopkg.in/yaml.v2
-  version: 86f5ed62f8a0ee96bd888d2efdfd6d4fb100a4eb
+  version: 5420a8b6744d3b0345ab293f6fcba19c978f1183
 testImports: []
