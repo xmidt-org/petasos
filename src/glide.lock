@@ -1,5 +1,5 @@
-hash: 024a2bc42ed86346b990a6ae73cc20a86b93ef84da4bab0e2840d39fda905123
-updated: 2018-03-30T12:11:01.511434662-07:00
+hash: a5cb550852407eef07356204e6cdb78a3f014a64228cd1385fcf76ec1f1886df
+updated: 2018-04-02T16:14:29.14359-07:00
 imports:
 - name: github.com/armon/go-metrics
   version: 783273d703149aaeb9897cf58613d5af48861c25
@@ -14,7 +14,7 @@ imports:
   subpackages:
   - linux
 - name: github.com/Comcast/webpa-common
-  version: 40d57eae21c0a935768684101e9e191c08cfe71c
+  version: 83585c278d8a6a20f8c7bd46e6f83f2b279ce8f4
   subpackages:
   - concurrent
   - convey
@@ -91,7 +91,7 @@ imports:
   subpackages:
   - simplelru
 - name: github.com/hashicorp/hcl
-  version: f40e974e75af4e271d97ce0fc917af5898ae7bda
+  version: 23c074d0eceb2b8a5bfdbb271ab780cde70f05a8
   subpackages:
   - hcl/ast
   - hcl/parser
@@ -106,7 +106,7 @@ imports:
   subpackages:
   - coordinate
 - name: github.com/influxdata/influxdb
-  version: 02fd678483446d5da5185a5be77fa31c341edeb7
+  version: c9e7c5ad2bbe7f135cd6fa1f07ae3495d818b209
   subpackages:
   - client/v2
   - models
@@ -126,7 +126,7 @@ imports:
 - name: github.com/mitchellh/mapstructure
   version: 00c29f56e2386353d58c599509e8dc3801b0d716
 - name: github.com/pelletier/go-toml
-  version: 66540cf1fcd2c3aee6f6787dfa32a6ae9a870f12
+  version: 05bcc0fb0d3e60da4b8dd5bd7e0ea563eb4ca943
 - name: github.com/pmezard/go-difflib
   version: d8ed2627bdf02c080bf22230dbb337003b7aba2d
   subpackages:
@@ -141,7 +141,7 @@ imports:
   subpackages:
   - go
 - name: github.com/prometheus/common
-  version: 2e54d0b93cba2fd133edc32211dcc32c06ef72ca
+  version: e4aa40a9169a88835b849a6efb71e05dc04b88f0
   subpackages:
   - expfmt
   - internal/bitbucket.org/ww/goautoneg
@@ -157,7 +157,7 @@ imports:
 - name: github.com/spaolacci/murmur3
   version: 0d12bf811670bf6a1a63828dfbd003eded177fce
 - name: github.com/spf13/afero
-  version: a880a37ed1804d98f64b3b7d58b5e3f8fbf421c4
+  version: bbf41cb36dffe15dff5bf7e18c447801e7ffe163
   subpackages:
   - mem
 - name: github.com/spf13/cast
@@ -184,7 +184,7 @@ imports:
 - name: github.com/VividCortex/gohistogram
   version: 51564d9861991fb0ad0f531c99ef602d0f9866e6
 - name: golang.org/x/sys
-  version: 062cd7e4e68206d8bab9b18396626e855c992658
+  version: 89ac7f292d17a339edab4de8efcba5d8672ff661
   subpackages:
   - unix
 - name: golang.org/x/text
@@ -195,5 +195,5 @@ imports:
 - name: gopkg.in/natefinch/lumberjack.v2
   version: a96e63847dc3c67d17befa69c303767e2f84e54f
 - name: gopkg.in/yaml.v2
-  version: 5420a8b6744d3b0345ab293f6fcba19c978f1183
+  version: 7f97868eec74b32b0982dd158a51a446d1da7eb5
 testImports: []
