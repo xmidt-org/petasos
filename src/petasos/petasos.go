@@ -29,6 +29,8 @@ import (
 	"github.com/Comcast/webpa-common/service"
 	"github.com/Comcast/webpa-common/service/monitor"
 	"github.com/Comcast/webpa-common/service/servicecfg"
+	"github.com/Comcast/webpa-common/service/servicehttp"
+	"github.com/go-kit/kit/log/level"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
@@ -78,15 +80,15 @@ func petasos(arguments []string) int {
 	var (
 		accessor = new(service.UpdatableAccessor)
 
-		redirectHandler = &service.RedirectHandler{
+		redirectHandler = &servicehttp.RedirectHandler{
 			Logger:       logger,
 			KeyFunc:      device.IDHashParser,
 			Accessor:     accessor,
 			RedirectCode: http.StatusTemporaryRedirect,
 		}
 
-		_, petasosServer = webPA.Prepare(logger, nil, metricsRegistry, redirectHandler)
-		signals          = make(chan os.Signal, 1)
+		_, petasosServer, done = webPA.Prepare(logger, nil, metricsRegistry, redirectHandler)
+		signals                = make(chan os.Signal, 1)
 	)
 
 	_, err = monitor.New(
@@ -113,8 +115,22 @@ func petasos(arguments []string) int {
 	}
 
 	signal.Notify(signals)
-	s := server.SignalWait(infoLog, signals, os.Kill, os.Interrupt)
-	errorLog.Log(logging.MessageKey(), "exiting due to signal", "signal", s)
+	for exit := false; !exit; {
+		select {
+		case s := <-signals:
+			if s != os.Kill && s != os.Interrupt {
+				logger.Log(level.Key(), level.InfoValue(), logging.MessageKey(), "ignoring signal", "signal", s)
+			} else {
+				logger.Log(level.Key(), level.ErrorValue(), logging.MessageKey(), "exiting due to signal", "signal", s)
+				exit = true
+			}
+
+		case <-done:
+			logger.Log(level.Key(), level.ErrorValue(), logging.MessageKey(), "one or more servers exited")
+			exit = true
+		}
+	}
+
 	close(shutdown)
 	waitGroup.Wait()
 
