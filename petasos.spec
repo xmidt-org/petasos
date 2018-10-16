@@ -109,3 +109,5 @@ if [ $1 = 0 ]; then
 fi
 
 %changelog
+* Tue Mar 28 2017 Weston Schmidt - 0.1.1
+- initial creation
