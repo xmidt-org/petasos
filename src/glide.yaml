@@ -2,5 +2,4 @@ package: .
 homepage: https://github.com/Comcast/petasos
 import:
 - package: github.com/Comcast/webpa-common
-  version: accessorCluster
-  repo: https://github.com/kcajmagic/webpa-common.git
+  version: 1c283bafd471e5215d3df75a68558926fc4cb692

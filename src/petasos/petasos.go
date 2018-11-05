@@ -83,10 +83,9 @@ func petasos(arguments []string) int {
 	infoLog.Log("configurationFile", v.ConfigFileUsed())
 
 	var (
-		accessor = new(service.LayeredAccessor)
+		accessor = service.NewLayeredAccesor(service.DefaultTrafficRouter(), service.DefaultOrder())
 
 		redirectHandler = &servicehttp.RedirectHandler{
-			Logger:       logger,
 			KeyFunc:      device.IDHashParser,
 			Accessor:     accessor,
 			RedirectCode: http.StatusTemporaryRedirect,
@@ -97,8 +96,6 @@ func petasos(arguments []string) int {
 
 		controlRegions = make(map[string]gate.Interface)
 	)
-
-	accessor.SetRouter(service.DefaultTrafficRouter())
 
 	g := gate.New(true, gate.WithGauge(metricsRegistry.NewGauge("gate_status")))
 
