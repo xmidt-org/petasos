@@ -26,13 +26,16 @@ import (
 	"github.com/Comcast/webpa-common/concurrent"
 	"github.com/Comcast/webpa-common/device"
 	"github.com/Comcast/webpa-common/logging"
+	"github.com/Comcast/webpa-common/logging/logginghttp"
 	"github.com/Comcast/webpa-common/server"
 	"github.com/Comcast/webpa-common/service"
 	"github.com/Comcast/webpa-common/service/monitor"
 	"github.com/Comcast/webpa-common/service/servicecfg"
 	"github.com/Comcast/webpa-common/service/servicehttp"
 	"github.com/Comcast/webpa-common/xhttp/gate"
+	"github.com/Comcast/webpa-common/xhttp/xcontext"
 	"github.com/go-kit/kit/log/level"
+	"github.com/justinas/alice"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
@@ -91,7 +94,10 @@ func petasos(arguments []string) int {
 			RedirectCode: http.StatusTemporaryRedirect,
 		}
 
-		_, petasosServer, done = webPA.Prepare(logger, nil, metricsRegistry, redirectHandler)
+		requestFunc      = logginghttp.SetLogger(logger, logginghttp.Header("X-Webpa-Device-Name", "device_id"), logginghttp.Header("Authorization", "authorization"))
+		decoratedHandler = alice.New(xcontext.Populate(0, requestFunc)).Then(redirectHandler)
+
+		_, petasosServer, done = webPA.Prepare(logger, nil, metricsRegistry, decoratedHandler)
 		signals                = make(chan os.Signal, 1)
 
 		controlRegions = make(map[string]gate.Interface)
