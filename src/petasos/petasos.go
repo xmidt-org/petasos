@@ -84,13 +84,12 @@ func petasos(arguments []string) int {
 		accessor = new(service.UpdatableAccessor)
 
 		redirectHandler = &servicehttp.RedirectHandler{
-			Logger:       logger,
 			KeyFunc:      device.IDHashParser,
 			Accessor:     accessor,
 			RedirectCode: http.StatusTemporaryRedirect,
 		}
 
-		requestFunc      = logginghttp.SetLogger(redirectHandler.Logger, logginghttp.Header("X-Webpa-Device-Name", "device_id"), logginghttp.Header("Authorization", "authorization"))
+		requestFunc      = logginghttp.SetLogger(logger, logginghttp.Header("X-Webpa-Device-Name", "device_id"), logginghttp.Header("Authorization", "authorization"))
 		decoratedHandler = alice.New(xcontext.Populate(0, requestFunc)).Then(redirectHandler)
 
 		_, petasosServer, done = webPA.Prepare(logger, nil, metricsRegistry, decoratedHandler)
