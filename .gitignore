@@ -7,6 +7,7 @@ src/vendor
 *.a
 *.so
 *.bak
+*.log
 +src/petasos/petasos
 +src/petasos/debug
 +src/petasos/output
