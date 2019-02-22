@@ -20,17 +20,22 @@
 	},
 
 	"service": {
-		"zookeeper": {
+		"consul": {
 			"client": {
-				"servers": ["localhost:2181"]
+				"address": "127.0.0.1:8500",
+				"scheme": "http"
 			},
-			"watches": ["/xmidt/local"]
+			"watches": [
+				{
+					"service": "talaria"
+				}
+			]
 		}
 	},
 	
 	"log" : {
 		"file"      : "stdout",
-		"level"     : "DEBUG",
+		"level"     : "INFO",
 		"json": true
 	}
 }
