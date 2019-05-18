@@ -61,14 +61,8 @@ start() {
 
 stop() {
 	echo -n $"Stopping petasos: "
-	pid=`cat /var/run/petasos.pid`
 	supervisorctl -c /etc/petasos/supervisord.conf shutdown > /dev/null
 	RETVAL=$?
-	while [[ 0 == ${?} ]]
-	do
-		sleep 1s
-		ps -p $pid > /dev/null
-	done
 	echo
 	[ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/petasos
 }
