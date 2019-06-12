@@ -42,7 +42,7 @@ const (
 	applicationName        = "petasos"
 	release                = "Developer"
 	defaultVnodeCount  int = 211
-	applicationVersion     = "0.1.2"
+	applicationVersion     = "0.1.3"
 )
 
 // petasos is the driver function for Petasos.  It performs everything main() would do,
