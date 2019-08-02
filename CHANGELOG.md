@@ -20,5 +20,7 @@ Switching to new build process
 ### Added
 - Initial creation
 
-[Unreleased]: https://github.com/Comcast/petasos/compare/0.1.1...HEAD
+[Unreleased]: https://github.com/Comcast/petasos/compare/v0.1.4...HEAD
+[v0.1.4]: https://github.com/Comcast/petasos/compare/v0.1.2...v0.1.4
+[v0.1.2]: https://github.com/Comcast/petasos/compare/0.1.1...v0.1.2
 [0.1.1]: https://github.com/Comcast/petasos/compare/0.0.0...0.1.1
