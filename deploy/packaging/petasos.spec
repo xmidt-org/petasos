@@ -11,7 +11,7 @@ Vendor:     Comcast
 Packager:   Comcast
 Group:      System Environment/Daemons
 License:    ASL 2.0
-URL:        https://github.com/xmidt-org/talaria
+URL:        https://github.com/xmidt-org/petasos
 Source0:    %{name}-%{_version}.tar.gz
 
 Prefix:     /opt
