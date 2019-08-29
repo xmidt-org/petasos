@@ -2,8 +2,8 @@
 %define __os_install_post %{nil}
 
 Name:       petasos
-Version:    %{_ver}
-Release:    %{_releaseno}%{?dist}
+Version:    %{_version}
+Release:    %{_release}%{?dist}
 Summary:    The Xmidt HTTP redirector server.
 
 
@@ -20,8 +20,7 @@ BuildRequires: systemd
 BuildRequires: golang >= 1.11
 
 %description
-The shield to protect our users from incoming events for the codex project.
-aka. The receiver of data from XMiDT Caduceus
+The Xmidt HTTP redirector server.
 
 %build
 GO111MODULE=on go build -o $RPM_SOURCE_DIR/%{name} %{_topdir}/..
