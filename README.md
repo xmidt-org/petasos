@@ -10,12 +10,41 @@
 [![GitHub release](https://img.shields.io/github/release/xmidt-org/petasos.svg)](CHANGELOG.md)
 
 ## Summary
-Petasos is the HTTP redirector component. Petasos will redirect http requests, to a
-talaria depending on the the device id and talaria service discovery configuration.
+Petasos is the HTTP redirector component of [XMiDT](https://xmidt.io/).
+Petasos will redirect http requests, to a [talaria](https://github.com/xmidt-org/talaria)
+depending on the the device id and talaria service discovery configuration.
 
 ## Details
-There is only one endpoint with petasos `/api/v2/device`. Petasos will return a
-http 307 redirect to the corresponding talaria.
+Petasos has one function: to redirect incoming request to the correct talaria.
+Upon any request to Petasos; it will return a http 307 redirect to the corresponding talaria.
+The correct talaria is where the device is and where a new device should go.
+Petasos determines the correct talaria via service discovery configuration.
+Currently, petasos can be configured either to dynamically coordinate via Consul (`consul` option)
+or be statically configured (`fixed` option). Refer to [cluster configuration](https://xmidt.io/docs/operating/getting_started/)
+for more information.
+
+
+Petasos has only one endpoint `/*`. (e.g. `/api/v2/device`, `/api/v2/device/send`)
+In order for petasos to complete the request the `X-Webpa-Device-Name` header must
+be sent.
+
+For example, a docker container running with a fixed configuration will produce the following:
+```
+$ curl -i  -H "X-Webpa-Device-Name:mac:112233445566" localhost:6400/
+HTTP/1.1 307 Temporary Redirect
+Content-Type: text/html; charset=utf-8
+Location: http://talaria:6200
+X-Petasos-Build: 0.1.4
+X-Petasos-Flavor: mint
+X-Petasos-Region: east
+X-Petasos-Server: petasos
+X-Petasos-Start-Time: 03 Sep 19 15:39 UTC
+Date: Tue, 03 Sep 2019 15:40:04 GMT
+Content-Length: 55
+
+<a href="http://talaria:6200">Temporary Redirect</a>.
+```
+
 
 
 ## Build
