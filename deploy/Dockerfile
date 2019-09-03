@@ -19,4 +19,5 @@ EXPOSE 8080
 
 COPY --from=builder /go/src/github.com/xmidt-org/petasos/petasos_linux_amd64 /
 COPY petasos.yaml /
+COPY deploy/Dockerfile NOTICE LICENSE CHANGELOG.md /
 ENTRYPOINT ["/petasos_linux_amd64"]
