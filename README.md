@@ -11,22 +11,22 @@
 
 ## Summary
 Petasos is the HTTP redirector component of [XMiDT](https://xmidt.io/).
-Petasos will redirect http requests, to a [talaria](https://github.com/xmidt-org/talaria)
+Petasos will redirect http requests to a [talaria](https://github.com/xmidt-org/talaria)
 depending on the the device id and talaria service discovery configuration.
 
 ## Details
-Petasos has one function: to redirect incoming request to the correct talaria.
-Upon any request to Petasos; it will return a http 307 redirect to the corresponding talaria.
-The correct talaria is where the device is and where a new device should go.
+Petasos has one function: to redirect incoming requests to the correct talaria.
+The two types of requests are from a device looking to connect to talaria and from scytale looking to forward a request to a device.
+In either case, petasos returns an http 307 redirect to the talaria.
 Petasos determines the correct talaria via service discovery configuration.
-Currently, petasos can be configured either to dynamically coordinate via Consul (`consul` option)
+Currently, petasos can be configured either to dynamically coordinate talarias via Consul (`consul` option)
 or be statically configured (`fixed` option). Refer to [cluster configuration](https://xmidt.io/docs/operating/getting_started/)
 for more information.
 
-
-Petasos has only one endpoint `/*`. (e.g. `/api/v2/device`, `/api/v2/device/send`)
-In order for petasos to complete the request the `X-Webpa-Device-Name` header must
-be sent.
+Any URI paths (e.g. `/api/v2/device`, `/api/v2/device/send`) will be redirected
+to the talaria; petasos doesn't parse or validate the path in the request.
+In order for petasos to complete the request, the `X-Webpa-Device-Name` header must
+be included.
 
 For example, a docker container running with a fixed configuration will produce the following:
 ```
@@ -44,8 +44,6 @@ Content-Length: 55
 
 <a href="http://talaria:6200">Temporary Redirect</a>.
 ```
-
-
 
 ## Build
 

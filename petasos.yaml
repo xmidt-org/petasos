@@ -249,7 +249,7 @@ service:
   #       # to send requests that will fail.
   #       checks:
   #         - # CheckID is a unique id for the check.
-  #           checkID: "petasos:http"
+  #           checkID: "petasos-1:http"
   #
   #           # http tells consul to check via http rest request at the url
   #           # provided.
@@ -284,7 +284,8 @@ service:
   #
   #       # allDatacenters determines if there is a watch for all datacenter changes.
   #       # change this to have the devices hash across all datacenters instead of
-  #       # the single datacenter.
+  #       # the single datacenter. The datacenter is known by the consul agent who is
+  #       # aware of which datacenter it is in.
   #       # (Optional) defaults to false, aka only watch for services in the
   #       # current datacenter.
   #       allDatacenters: false
