@@ -17,10 +17,13 @@
 package main
 
 import (
+	"fmt"
+	"io"
 	"net/http"
 	_ "net/http/pprof"
 	"os"
 	"os/signal"
+	"runtime"
 
 	"github.com/go-kit/kit/log/level"
 	"github.com/justinas/alice"
@@ -39,10 +42,15 @@ import (
 )
 
 const (
-	applicationName        = "petasos"
-	release                = "Developer"
-	defaultVnodeCount  int = 211
-	applicationVersion     = "0.1.4"
+	applicationName       = "petasos"
+	release               = "Developer"
+	defaultVnodeCount int = 211
+)
+
+var (
+	GitCommit = "undefined"
+	Version   = "undefined"
+	BuildTime = "undefined"
 )
 
 // petasos is the driver function for Petasos.  It performs everything main() would do,
@@ -60,6 +68,18 @@ func petasos(arguments []string) int {
 		infoLog                             = logging.Info(logger)
 		errorLog                            = logging.Error(logger)
 	)
+
+	if parseErr, done := printVersion(f, arguments); done {
+		// if we're done, we're exiting no matter what
+		if parseErr != nil {
+			friendlyError := fmt.Sprintf("failed to parse arguments. detailed error: %s", parseErr)
+			logging.Error(logger).Log(
+				logging.ErrorKey(),
+				friendlyError)
+			os.Exit(1)
+		}
+		os.Exit(0)
+	}
 
 	if err != nil {
 		errorLog.Log(logging.MessageKey(), "Unable to initialize Viper environment", logging.ErrorKey(), err)
@@ -141,6 +161,28 @@ func petasos(arguments []string) int {
 	waitGroup.Wait()
 
 	return 0
+}
+
+func printVersion(f *pflag.FlagSet, arguments []string) (error, bool) {
+	printVer := f.BoolP("version", "v", false, "displays the version number")
+	if err := f.Parse(arguments); err != nil {
+		return err, true
+	}
+
+	if *printVer {
+		printVersionInfo(os.Stdout)
+		return nil, true
+	}
+	return nil, false
+}
+
+func printVersionInfo(writer io.Writer) {
+	fmt.Fprintf(writer, "%s:\n", applicationName)
+	fmt.Fprintf(writer, "  version: \t%s\n", Version)
+	fmt.Fprintf(writer, "  go version: \t%s\n", runtime.Version())
+	fmt.Fprintf(writer, "  built time: \t%s\n", BuildTime)
+	fmt.Fprintf(writer, "  git commit: \t%s\n", GitCommit)
+	fmt.Fprintf(writer, "  os/arch: \t%s/%s\n", runtime.GOOS, runtime.GOARCH)
 }
 
 func main() {
