@@ -14,6 +14,19 @@ Petasos is the HTTP redirector component of [XMiDT](https://xmidt.io/).
 Petasos will redirect http requests to a [talaria](https://github.com/xmidt-org/talaria)
 depending on the the device id and talaria service discovery configuration.
 
+## Table of Contents
+
+- [Code of Conduct](#code-of-conduct)
+- [Details](#details)
+- [Build](#build)
+- [Deploy](#deploy)
+- [Contributing](#contributing)
+
+## Code of Conduct
+
+This project and everyone participating in it are governed by the [XMiDT Code Of Conduct](https://xmidt.io/code_of_conduct/). 
+By participating, you agree to this Code.
+
 ## Details
 Petasos has one function: to redirect incoming requests to the correct talaria.
 The two types of requests are from a device looking to connect to talaria and from scytale looking to forward a request to a device.
