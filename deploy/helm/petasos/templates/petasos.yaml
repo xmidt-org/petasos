@@ -194,17 +194,6 @@ metadata:
 apiVersion: v1
 kind: Service
 metadata:
-  name: petasos-nodeport
-spec:
-  type: NodePort
-  ports:
-    - port: 6400
-  selector:
-    app: xmidt-app-petasos
----
-apiVersion: v1
-kind: Service
-metadata:
   annotations:
     service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
   labels:
