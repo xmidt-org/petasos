@@ -116,7 +116,10 @@ then replace `local` in the `docker build` command.
 
 ### Kubernetes
 
-WIP. TODO: add info
+A helm chart can be used to deploy petasos to kubernetes
+```
+helm install xmidt-petasos deploy/helm/petasos
+```
 
 ## Deploy
 

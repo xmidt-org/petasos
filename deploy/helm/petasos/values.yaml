@@ -1,0 +1,33 @@
+# Default values for xmitd-talaria.
+
+petasos:
+  # docker image used
+  image: xmidt/petasos
+  address:
+    host: ""
+    port: "6400"
+
+health:
+  address:
+    host: ""
+    port: "6401"
+
+pprof:
+  address:
+    host: ""
+    port: "6402"
+
+control:
+  address:
+    host: ""
+    port: "6403"
+
+metric:
+  address:
+    host: ""
+    port: "6404"  
+
+# Pull secret used when images are stored in a private repository
+# imagePullSecretName:
+
+
