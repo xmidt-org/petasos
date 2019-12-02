@@ -54,3 +54,6 @@ _testmain.go
 
 petasos
 .ignore
+
+!deploy/helm/petasos
+deploy/helm/petasos/rendered.*
