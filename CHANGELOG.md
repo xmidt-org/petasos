@@ -5,16 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- converting from glide to go mod
+- updated release pipeline to use travis [#47](https://github.com/xmidt-org/petasos/pull/47)
 
 ## [v0.1.4]
 fixed build upload
 
-
-
 ## [v0.1.2]
 Switching to new build process
-
-
 
 ## [0.1.1]
 ### Added
