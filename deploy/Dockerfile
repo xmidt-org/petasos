@@ -1,26 +1,48 @@
-FROM golang:alpine as builder
+FROM docker.io/library/golang:1.14-alpine as builder
+
 MAINTAINER Jack Murdock <jack_murdock@comcast.com>
 
 WORKDIR /go/src/github.com/xmidt-org/petasos
-ARG VERSION=undefined
-ARG GITCOMMIT=undefined
-ARG BUILDTIME=undefined
 
-RUN apk update && apk upgrade && \
-    apk add --no-cache bash git openssh
+ARG VERSION=unknown
+ARG GITCOMMIT=unknown
+ARG BUILDTIME=unknown
+
+ADD https://github.com/geofffranks/spruce/releases/download/v1.25.2/spruce-linux-amd64 /usr/local/bin/spruce
+RUN chmod +x /usr/local/bin/spruce
+
+RUN apk add --no-cache --no-progress \
+    ca-certificates \
+    make \
+    git \
+    openssh \
+    gcc \
+    libc-dev \
+    upx
 
 COPY . .
-RUN GO111MODULE=on go build -ldflags "-X 'main.BuildTime=${BUILDTIME}' -X main.GitCommit=${GITCOMMIT} -X main.Version=${VERSION}" -o petasos_linux_amd64
+RUN make build
 
-FROM alpine
+FROM alpine:latest
 
-RUN apk --no-cache add ca-certificates
-RUN mkdir -p /etc/petasos
-VOLUME /etc/petasos
+COPY --from=builder /etc/passwd /etc/passwd
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --from=builder /go/src/github.com/xmidt-org/petasos/petasos.yaml /petasos.yaml
+COPY --from=builder /go/src/github.com/xmidt-org/petasos/petasos /petasos
+COPY --from=builder /go/src/github.com/xmidt-org/petasos/deploy/Dockerfile /go/src/github.com/xmidt-org/petasos/NOTICE /go/src/github.com/xmidt-org/petasos/LICENSE /go/src/github.com/xmidt-org/petasos/CHANGELOG.md /
+COPY --from=builder /go/src/github.com/xmidt-org/petasos/deploy/packaging/entrypoint.sh /entrypoint.sh
+COPY --from=builder /go/src/github.com/xmidt-org/petasos/deploy/packaging/petasos_spruce.yaml /tmp/petasos_spruce.yaml
+COPY --from=builder /usr/local/bin/spruce /spruce
 
-EXPOSE 8080
+RUN mkdir /etc/petasos/ && touch /etc/petasos/petasos.yaml && chmod 666 /etc/petasos/petasos.yaml
 
-COPY --from=builder /go/src/github.com/xmidt-org/petasos/petasos_linux_amd64 /
-COPY petasos.yaml /
-COPY deploy/Dockerfile NOTICE LICENSE CHANGELOG.md /
-ENTRYPOINT ["/petasos_linux_amd64"]
+USER nobody
+
+ENTRYPOINT ["/entrypoint.sh"]
+
+EXPOSE 6400
+EXPOSE 6401
+EXPOSE 6402
+EXPOSE 6403
+
+CMD ["/petasos"]
