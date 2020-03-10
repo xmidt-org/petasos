@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 - converting from glide to go mod
 - updated release pipeline to use travis [#47](https://github.com/xmidt-org/petasos/pull/47)
+- adding docker automation [#48](https://github.com/xmidt-org/petasos/pull/48)
 
 ## [v0.1.4]
 fixed build upload
