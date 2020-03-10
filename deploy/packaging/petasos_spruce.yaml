@@ -27,6 +27,10 @@ region: "east"
 # (Optional)
 flavor: (( grab $FLAVOR || "mint" ))
 
+# stage is used for doing complex spruce manipulation
+# change this will only effect spruce and the vars referencing it
+stage: (( grab $STAGE || "dev" ))
+
 ##############################################################################
 # WebPA Service configuration
 ##############################################################################
@@ -211,7 +215,7 @@ service:
     # (Optional) defaults to empty list
     registrations:
       - # id is the unique id for the service registration.
-        id: (( grab $HOSTNAME || "petasos" ))
+        id: (( grab server ))
 
         # name is the service name.
         name: "petasos"
@@ -221,11 +225,11 @@ service:
         # services in consul.
         # (Optional) defaults to empty list
         tags:
-          - (( concat "stage=" $STAGE || "flavor=dev" ))
-          - (( concat "flavor=" $FLAVOR || "flavor=mint" ))
+          - (( concat "stage=" stage))
+          - (( concat "flavor=" flavor))
 
         # address tells consul where to contact the service.
-        address: (( concat "http://" $HOSTNAME || "http://petasos" ))
+        address: (( concat "http://" server ))
 
         # scheme tells consul what scheme to use to contact the service.
         # This is used with the address for calls to this server.
@@ -243,11 +247,11 @@ service:
         # to send requests that will fail.
         checks:
           - # CheckID is a unique id for the check.
-            checkID: (( concat $HOSTNAME  ":http" || "petasos:http" ))
+            checkID:  (( concat server ":http" ))
 
             # http tells consul to check via http rest request at the url
             # provided.
-            http:  (( concat "http://" $HOSTNAME  ":6301/health" || "http://scytale:6301/health" ))
+            http:  (( concat "http://" server ":6301/health" ))
 
             # interval is how often to check.
             interval: "30s"
@@ -269,8 +273,8 @@ service:
         # being watched.
         # (Optional) defaults to empty list
         tags:
-          - (( concat "stage=" $STAGE || "flavor=dev" ))
-          - (( concat "flavor=" $FLAVOR || "flavor=mint" ))
+          - (( concat "stage=" stage))
+          - (( concat "flavor=" flavor))
 
         # passingOnly determines if only services passing the consul check are returned.
         # (Optional) defaults to false
