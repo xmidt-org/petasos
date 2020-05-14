@@ -5,9 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-- converting from glide to go mod
-- updated release pipeline to use travis [#47](https://github.com/xmidt-org/petasos/pull/47)
+### Added
 - adding docker automation [#48](https://github.com/xmidt-org/petasos/pull/48)
+
+### Changed
+- switch dependency tooling from glide to go modules
+- updated release pipeline to use travis [#47](https://github.com/xmidt-org/petasos/pull/47)
+- register for specific OS signals [#51](https://github.com/xmidt-org/petasos/pull/51)
 
 ## [v0.1.4]
 fixed build upload
