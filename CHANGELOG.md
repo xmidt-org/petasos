@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Update mentions of the default branch from 'master' to 'main'. [#54](https://github.com/xmidt-org/petasos/pull/54)
 - Update buildtime format in Makefile to match RPM spec file. [#61](https://github.com/xmidt-org/petasos/pull/61)
+- Migrate to github actions, normalize analysis tools, Dockerfiles and Makefiles. [#62](https://github.com/xmidt-org/petasos/pull/62)
 
 ## [v0.1.5]
 ### Added
