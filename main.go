@@ -18,13 +18,13 @@ package main
 
 import (
 	"fmt"
+	"github.com/xmidt-org/candlelight"
 	"io"
 	"net/http"
 	_ "net/http/pprof"
 	"os"
 	"os/signal"
 	"runtime"
-
 	"github.com/go-kit/kit/log/level"
 	"github.com/justinas/alice"
 	"github.com/spf13/pflag"
@@ -45,6 +45,7 @@ const (
 	applicationName       = "petasos"
 	release               = "Developer"
 	defaultVnodeCount int = 211
+	tracingConfigKey      = "tracing"
 )
 
 var (
@@ -101,6 +102,23 @@ func petasos(arguments []string) int {
 
 	infoLog.Log("configurationFile", v.ConfigFileUsed())
 
+	u := v.Sub(tracingConfigKey)
+	if u == nil {
+		fmt.Fprintf(os.Stderr, "tracing configuration is missing.\n")
+		return 1
+	}
+	config := &candlelight.Config{
+		ApplicationName: applicationName,
+	}
+	u.Unmarshal(config)
+	traceProvider, err := candlelight.ConfigureTracerProvider(*config)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to build traceProvider: %s\n", err.Error())
+		return 1
+	}
+
+	traceConfig := candlelight.TraceConfig{TraceProvider: traceProvider}
+
 	var (
 		accessor = new(service.UpdatableAccessor)
 
@@ -110,8 +128,8 @@ func petasos(arguments []string) int {
 			RedirectCode: http.StatusTemporaryRedirect,
 		}
 
-		requestFunc      = logginghttp.SetLogger(logger, logginghttp.Header("X-Webpa-Device-Name", "device_id"), logginghttp.Header("Authorization", "authorization"))
-		decoratedHandler = alice.New(xcontext.Populate(requestFunc)).Then(redirectHandler)
+		requestFunc      = logginghttp.SetLogger(logger, logginghttp.Header("X-Webpa-Device-Name", "device_id"), logginghttp.Header("Authorization", "authorization"), candlelight.InjectTraceInformationInLogger())
+		decoratedHandler = alice.New(traceConfig.TraceMiddleware, xcontext.Populate(requestFunc)).Then(redirectHandler)
 
 		_, petasosServer, done = webPA.Prepare(logger, nil, metricsRegistry, decoratedHandler)
 		signals                = make(chan os.Signal, 10)
