@@ -85,6 +85,7 @@ github.com/aws/aws-sdk-go v1.27.0/go.mod h1:KmX6BPdI08NWTb3/sm4ZGu5ShLoqVDhKgpiN
 github.com/aws/aws-sdk-go v1.31.6 h1:nKjQbpXhdImctBh1e0iLg9iQW/X297LPPuY/9f92R2k=
 github.com/aws/aws-sdk-go v1.31.6/go.mod h1:5zCpMtNQVjRREroY7sYe8lOMRSxkhG6MZveU8YkpAk0=
 github.com/aws/aws-sdk-go-v2 v0.18.0/go.mod h1:JWVYvqSMppoMJC0x5wdwiImzgXTI9FuZwxzkQq9wy+g=
+github.com/benbjohnson/clock v1.0.3 h1:vkLuvpK4fmtSCuo60+yC63p7y0BmQ8gm5ZXGuBCJyXg=
 github.com/benbjohnson/clock v1.0.3/go.mod h1:bGMdMPoPVvcYyt1gHDf4J2KE153Yf9BuiUKYMaxlTDM=
 github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973/go.mod h1:Dwedo/Wpr24TaqPxmxbtue+5NUziq4I4S80YR8gNf3Q=
 github.com/beorn7/perks v1.0.0 h1:HWo1m869IqiPhD389kmkxeTalrjNbbJTC8LXupb+sl0=
@@ -709,8 +710,8 @@ github.com/xmidt-org/bascule v0.8.0/go.mod h1:dPxlbNT3lCwYAtOq2zbzyzTEKgM+azLSbK
 github.com/xmidt-org/bascule v0.8.1/go.mod h1:dPxlbNT3lCwYAtOq2zbzyzTEKgM+azLSbKKcVmgSHBY=
 github.com/xmidt-org/bascule v0.9.0 h1:CsMtwiDO4jjoOIh4pWe2U9tXA9A73CfohDsSvwzXm9Q=
 github.com/xmidt-org/bascule v0.9.0/go.mod h1:C64nSBtUTTK/f2/mCvvp/qJhav5raD0T+by68DCp/gU=
-github.com/xmidt-org/candlelight v0.0.3-0.20210316194605-87e0ead2a9f2 h1:Noao5N8eM5bRJ7kYIeh6IvouFW+6+Pct9GO/7A6gaZA=
-github.com/xmidt-org/candlelight v0.0.3-0.20210316194605-87e0ead2a9f2/go.mod h1:gtXflnkL8urTPIjG+krbA90dN4tBpyAHZO5IxuWGcCk=
+github.com/xmidt-org/candlelight v0.0.3 h1:WI53HKHle8pmhVpjXxhFU3aUhvDnzkRB2X3yXbgM1jI=
+github.com/xmidt-org/candlelight v0.0.3/go.mod h1:gtXflnkL8urTPIjG+krbA90dN4tBpyAHZO5IxuWGcCk=
 github.com/xmidt-org/themis v0.4.4 h1:KewitRxStW1xOehDBi0YyGZyRv3PjFdYUEDvQFf1Nmk=
 github.com/xmidt-org/themis v0.4.4/go.mod h1:0qRYFvKdrQhwjxH/1nAiTgBGT4cegJR76gfEYF5P7so=
 github.com/xmidt-org/webpa-common v1.1.0/go.mod h1:oCpKzOC+9h2vYHVzAU/06tDTQuBN4RZz+rhgIXptpOI=
