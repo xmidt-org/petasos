@@ -18,17 +18,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/xmidt-org/candlelight"
-	"io"
-	"net/http"
-	_ "net/http/pprof"
-	"os"
-	"os/signal"
-	"runtime"
 	"github.com/go-kit/kit/log/level"
+	"github.com/gorilla/mux"
 	"github.com/justinas/alice"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
+	"github.com/xmidt-org/candlelight"
 	"github.com/xmidt-org/webpa-common/concurrent"
 	"github.com/xmidt-org/webpa-common/device"
 	"github.com/xmidt-org/webpa-common/logging"
@@ -39,13 +34,22 @@ import (
 	"github.com/xmidt-org/webpa-common/service/servicecfg"
 	"github.com/xmidt-org/webpa-common/service/servicehttp"
 	"github.com/xmidt-org/webpa-common/xhttp/xcontext"
+	"go.opentelemetry.io/contrib/instrumentation/github.com/gorilla/mux/otelmux"
+	"go.opentelemetry.io/otel/propagation"
+	"go.opentelemetry.io/otel/trace"
+	"io"
+	"net/http"
+	_ "net/http/pprof"
+	"os"
+	"os/signal"
+	"runtime"
 )
 
 const (
-	applicationName       = "petasos"
-	release               = "Developer"
-	defaultVnodeCount int = 211
-	tracingConfigKey      = "tracing"
+	applicationName, apiBase     = "petasos", "api/v2"
+	release                      = "Developer"
+	defaultVnodeCount        int = 211
+	tracingConfigKey             = "tracing"
 )
 
 var (
@@ -53,6 +57,29 @@ var (
 	Version   = "undefined"
 	BuildTime = "undefined"
 )
+
+func loadTracing(v *viper.Viper, appName string) (candlelight.Tracing, error) {
+	var tracing = candlelight.Tracing{
+		Enabled:        false,
+		Propagator:     propagation.TraceContext{},
+		TracerProvider: trace.NewNoopTracerProvider(),
+	}
+	var traceConfig candlelight.Config
+	err := v.UnmarshalKey(tracingConfigKey, &traceConfig)
+	if err != nil {
+		return candlelight.Tracing{}, err
+	}
+	traceConfig.ApplicationName = appName
+	tracerProvider, err := candlelight.ConfigureTracerProvider(traceConfig)
+	if err != nil {
+		return candlelight.Tracing{}, err
+	}
+	if len(traceConfig.Provider) != 0 && traceConfig.Provider != candlelight.DefaultTracerProvider {
+		tracing.Enabled = true
+	}
+	tracing.TracerProvider = tracerProvider
+	return tracing, nil
+}
 
 // petasos is the driver function for Petasos.  It performs everything main() would do,
 // except for obtaining the command-line arguments (which are passed to it).
@@ -102,38 +129,37 @@ func petasos(arguments []string) int {
 
 	infoLog.Log("configurationFile", v.ConfigFileUsed())
 
-	u := v.Sub(tracingConfigKey)
-	if u == nil {
-		fmt.Fprintf(os.Stderr, "tracing configuration is missing.\n")
-		return 1
-	}
-	config := &candlelight.Config{
-		ApplicationName: applicationName,
-	}
-	u.Unmarshal(config)
-	traceProvider, err := candlelight.ConfigureTracerProvider(*config)
+	tracing, err := loadTracing(v, applicationName)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to build traceProvider: %s\n", err.Error())
+		fmt.Fprintf(os.Stderr, "Unable to build tracing component: %v \n", err)
 		return 1
 	}
+	infoLog.Log(logging.MessageKey(), "tracing status", "enabled", tracing.Enabled)
 
-	traceConfig := candlelight.TraceConfig{TraceProvider: traceProvider}
+	rootRouter := mux.NewRouter()
+	otelMuxOptions := []otelmux.Option{
+		otelmux.WithPropagators(tracing.Propagator),
+		otelmux.WithTracerProvider(tracing.TracerProvider),
+	}
+	rootRouter.Use(otelmux.Middleware("mainSpan", otelMuxOptions...), candlelight.EchoFirstTraceNodeInfo(tracing.Propagator))
 
-	var (
-		accessor = new(service.UpdatableAccessor)
+	accessor := new(service.UpdatableAccessor)
 
-		redirectHandler = &servicehttp.RedirectHandler{
-			KeyFunc:      device.IDHashParser,
-			Accessor:     accessor,
-			RedirectCode: http.StatusTemporaryRedirect,
-		}
+	redirectHandler := &servicehttp.RedirectHandler{
+		KeyFunc:      device.IDHashParser,
+		Accessor:     accessor,
+		RedirectCode: http.StatusTemporaryRedirect,
+	}
 
-		requestFunc      = logginghttp.SetLogger(logger, logginghttp.Header("X-Webpa-Device-Name", "device_id"), logginghttp.Header("Authorization", "authorization"), candlelight.InjectTraceInformationInLogger())
-		decoratedHandler = alice.New(traceConfig.TraceMiddleware, xcontext.Populate(requestFunc)).Then(redirectHandler)
+	requestFunc := logginghttp.SetLogger(logger, logginghttp.Header("X-Webpa-Device-Name", "device_id"), logginghttp.Header("Authorization", "authorization"), candlelight.InjectTraceInfoInLogger())
+	decoratedHandler := alice.New(xcontext.Populate(requestFunc)).Then(redirectHandler)
 
-		_, petasosServer, done = webPA.Prepare(logger, nil, metricsRegistry, decoratedHandler)
-		signals                = make(chan os.Signal, 10)
-	)
+	rootRouter.Handle("/{*}", decoratedHandler)
+	rootRouter.Handle("/"+fmt.Sprintf("%s", apiBase)+"/{*}", decoratedHandler)
+	rootRouter.Handle("/"+fmt.Sprintf("%s", apiBase)+"/{*}/{*}", decoratedHandler)
+
+	_, petasosServer, done := webPA.Prepare(logger, nil, metricsRegistry, rootRouter)
+	signals := make(chan os.Signal, 10)
 
 	_, err = monitor.New(
 		monitor.WithLogger(logger),
