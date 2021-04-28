@@ -11,4 +11,5 @@ require (
 	github.com/spf13/pflag v1.0.3
 	github.com/spf13/viper v1.6.1
 	github.com/xmidt-org/webpa-common v1.10.0
+	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.19.0
 )

@@ -39,6 +39,7 @@ import (
 	"github.com/xmidt-org/webpa-common/service/servicecfg"
 	"github.com/xmidt-org/webpa-common/service/servicehttp"
 	"github.com/xmidt-org/webpa-common/xhttp/xcontext"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 )
 
 const (
@@ -113,7 +114,10 @@ func petasos(arguments []string) int {
 		requestFunc      = logginghttp.SetLogger(logger, logginghttp.Header("X-Webpa-Device-Name", "device_id"), logginghttp.Header("Authorization", "authorization"))
 		decoratedHandler = alice.New(xcontext.Populate(requestFunc)).Then(redirectHandler)
 
-		_, petasosServer, done = webPA.Prepare(logger, nil, metricsRegistry, decoratedHandler)
+		options = []otelhttp.Option{} // TODO: Add tracer provider and propagator options here
+		handler = otelhttp.NewHandler(decoratedHandler, "mainSpan", options...)
+
+		_, petasosServer, done = webPA.Prepare(logger, nil, metricsRegistry, handler)
 		signals                = make(chan os.Signal, 10)
 	)
 
