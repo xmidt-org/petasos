@@ -19,7 +19,6 @@ package main
 import (
 	"fmt"
 	"github.com/go-kit/kit/log/level"
-	"github.com/gorilla/mux"
 	"github.com/justinas/alice"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
@@ -34,7 +33,7 @@ import (
 	"github.com/xmidt-org/webpa-common/service/servicecfg"
 	"github.com/xmidt-org/webpa-common/service/servicehttp"
 	"github.com/xmidt-org/webpa-common/xhttp/xcontext"
-	"go.opentelemetry.io/contrib/instrumentation/github.com/gorilla/mux/otelmux"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/trace"
 	"io"
@@ -136,13 +135,6 @@ func petasos(arguments []string) int {
 	}
 	infoLog.Log(logging.MessageKey(), "tracing status", "enabled", tracing.Enabled)
 
-	rootRouter := mux.NewRouter()
-	otelMuxOptions := []otelmux.Option{
-		otelmux.WithPropagators(tracing.Propagator),
-		otelmux.WithTracerProvider(tracing.TracerProvider),
-	}
-	rootRouter.Use(otelmux.Middleware("mainSpan", otelMuxOptions...), candlelight.EchoFirstTraceNodeInfo(tracing.Propagator))
-
 	accessor := new(service.UpdatableAccessor)
 
 	redirectHandler := &servicehttp.RedirectHandler{
@@ -151,14 +143,16 @@ func petasos(arguments []string) int {
 		RedirectCode: http.StatusTemporaryRedirect,
 	}
 
+	options := []otelhttp.Option{
+		otelhttp.WithPropagators(tracing.Propagator),
+		otelhttp.WithTracerProvider(tracing.TracerProvider),
+	}
 	requestFunc := logginghttp.SetLogger(logger, logginghttp.Header("X-Webpa-Device-Name", "device_id"), logginghttp.Header("Authorization", "authorization"), candlelight.InjectTraceInfoInLogger())
-	decoratedHandler := alice.New(xcontext.Populate(requestFunc)).Then(redirectHandler)
+	decoratedHandler := alice.New(xcontext.Populate(requestFunc), candlelight.EchoFirstTraceNodeInfo(tracing.Propagator)).Then(redirectHandler)
 
-	rootRouter.Handle("/{*}", decoratedHandler)
-	rootRouter.Handle("/"+fmt.Sprintf("%s", apiBase)+"/{*}", decoratedHandler)
-	rootRouter.Handle("/"+fmt.Sprintf("%s", apiBase)+"/{*}/{*}", decoratedHandler)
+	handler := otelhttp.NewHandler(decoratedHandler, "mainSpan", options...)
 
-	_, petasosServer, done := webPA.Prepare(logger, nil, metricsRegistry, rootRouter)
+	_, petasosServer, done := webPA.Prepare(logger, nil, metricsRegistry, handler)
 	signals := make(chan os.Signal, 10)
 
 	_, err = monitor.New(
