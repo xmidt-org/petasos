@@ -5,10 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [v0.1.6]
 ### Changed
 - Update mentions of the default branch from 'master' to 'main'. [#54](https://github.com/xmidt-org/petasos/pull/54)
 - Update buildtime format in Makefile to match RPM spec file. [#61](https://github.com/xmidt-org/petasos/pull/61)
 - Migrate to github actions, normalize analysis tools, Dockerfiles and Makefiles. [#62](https://github.com/xmidt-org/petasos/pull/62)
+- Add optional OpenTelemetry tracing feature. [#67](https://github.com/xmidt-org/petasos/pull/67) thanks to @utsavbatra5
 
 ## [v0.1.5]
 ### Added
@@ -32,7 +35,8 @@ Switching to new build process
 ### Added
 - Initial creation
 
-[Unreleased]: https://github.com/Comcast/petasos/compare/v0.1.5...HEAD
+[Unreleased]: https://github.com/Comcast/petasos/compare/v0.1.6...HEAD
+[v0.1.6]: https://github.com/Comcast/petasos/compare/v0.1.5...v0.1.6
 [v0.1.5]: https://github.com/Comcast/petasos/compare/v0.1.4...v0.1.5
 [v0.1.4]: https://github.com/Comcast/petasos/compare/v0.1.2...v0.1.4
 [v0.1.2]: https://github.com/Comcast/petasos/compare/0.1.1...v0.1.2
