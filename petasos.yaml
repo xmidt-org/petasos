@@ -297,9 +297,11 @@ service:
   #       # queryOptions:
   #       #   useCache: true
 
-# tracing provides configuration for OpenTelemetry
+# tracing provides configuration around traces using OpenTelemetry.
+# (Optional). By default, a 'noop' tracer provider is used and tracing is disabled.
 tracing:
   # provider is the provider name. Currently, stdout, jaegar and zipkin are supported.
+  # 'noop' can also be used as provider to explicitly disable tracing.
   provider: "noop"
 
   # skipTraceExport only applies when provider is stdout. Set skipTraceExport to true
