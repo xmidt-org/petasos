@@ -18,17 +18,11 @@ package main
 
 import (
 	"fmt"
-	"io"
-	"net/http"
-	_ "net/http/pprof"
-	"os"
-	"os/signal"
-	"runtime"
-
 	"github.com/go-kit/kit/log/level"
 	"github.com/justinas/alice"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
+	"github.com/xmidt-org/candlelight"
 	"github.com/xmidt-org/webpa-common/concurrent"
 	"github.com/xmidt-org/webpa-common/device"
 	"github.com/xmidt-org/webpa-common/logging"
@@ -39,12 +33,22 @@ import (
 	"github.com/xmidt-org/webpa-common/service/servicecfg"
 	"github.com/xmidt-org/webpa-common/service/servicehttp"
 	"github.com/xmidt-org/webpa-common/xhttp/xcontext"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
+	"go.opentelemetry.io/otel/propagation"
+	"go.opentelemetry.io/otel/trace"
+	"io"
+	"net/http"
+	_ "net/http/pprof"
+	"os"
+	"os/signal"
+	"runtime"
 )
 
 const (
-	applicationName       = "petasos"
-	release               = "Developer"
-	defaultVnodeCount int = 211
+	applicationName, apiBase     = "petasos", "api/v2"
+	release                      = "Developer"
+	defaultVnodeCount        int = 211
+	tracingConfigKey             = "tracing"
 )
 
 var (
@@ -52,6 +56,29 @@ var (
 	Version   = "undefined"
 	BuildTime = "undefined"
 )
+
+func loadTracing(v *viper.Viper, appName string) (candlelight.Tracing, error) {
+	var tracing = candlelight.Tracing{
+		Enabled:        false,
+		Propagator:     propagation.TraceContext{},
+		TracerProvider: trace.NewNoopTracerProvider(),
+	}
+	var traceConfig candlelight.Config
+	err := v.UnmarshalKey(tracingConfigKey, &traceConfig)
+	if err != nil {
+		return candlelight.Tracing{}, err
+	}
+	traceConfig.ApplicationName = appName
+	tracerProvider, err := candlelight.ConfigureTracerProvider(traceConfig)
+	if err != nil {
+		return candlelight.Tracing{}, err
+	}
+	if len(traceConfig.Provider) != 0 && traceConfig.Provider != candlelight.DefaultTracerProvider {
+		tracing.Enabled = true
+	}
+	tracing.TracerProvider = tracerProvider
+	return tracing, nil
+}
 
 // petasos is the driver function for Petasos.  It performs everything main() would do,
 // except for obtaining the command-line arguments (which are passed to it).
@@ -101,21 +128,32 @@ func petasos(arguments []string) int {
 
 	infoLog.Log("configurationFile", v.ConfigFileUsed())
 
-	var (
-		accessor = new(service.UpdatableAccessor)
+	tracing, err := loadTracing(v, applicationName)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to build tracing component: %v \n", err)
+		return 1
+	}
+	infoLog.Log(logging.MessageKey(), "tracing status", "enabled", tracing.Enabled)
 
-		redirectHandler = &servicehttp.RedirectHandler{
-			KeyFunc:      device.IDHashParser,
-			Accessor:     accessor,
-			RedirectCode: http.StatusTemporaryRedirect,
-		}
+	accessor := new(service.UpdatableAccessor)
 
-		requestFunc      = logginghttp.SetLogger(logger, logginghttp.Header("X-Webpa-Device-Name", "device_id"), logginghttp.Header("Authorization", "authorization"))
-		decoratedHandler = alice.New(xcontext.Populate(requestFunc)).Then(redirectHandler)
+	redirectHandler := &servicehttp.RedirectHandler{
+		KeyFunc:      device.IDHashParser,
+		Accessor:     accessor,
+		RedirectCode: http.StatusTemporaryRedirect,
+	}
 
-		_, petasosServer, done = webPA.Prepare(logger, nil, metricsRegistry, decoratedHandler)
-		signals                = make(chan os.Signal, 10)
-	)
+	options := []otelhttp.Option{
+		otelhttp.WithPropagators(tracing.Propagator),
+		otelhttp.WithTracerProvider(tracing.TracerProvider),
+	}
+	requestFunc := logginghttp.SetLogger(logger, logginghttp.Header("X-Webpa-Device-Name", "device_id"), logginghttp.Header("Authorization", "authorization"), candlelight.InjectTraceInfoInLogger())
+	decoratedHandler := alice.New(xcontext.Populate(requestFunc), candlelight.EchoFirstTraceNodeInfo(tracing.Propagator)).Then(redirectHandler)
+
+	handler := otelhttp.NewHandler(decoratedHandler, "mainSpan", options...)
+
+	_, petasosServer, done := webPA.Prepare(logger, nil, metricsRegistry, handler)
+	signals := make(chan os.Signal, 10)
 
 	_, err = monitor.New(
 		monitor.WithLogger(logger),
