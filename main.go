@@ -162,6 +162,7 @@ func petasos(arguments []string) int {
 			monitor.NewMetricsListener(metricsRegistry),
 			monitor.NewAccessorListener(e.AccessorFactory(), accessor.Update),
 		),
+		monitor.WithFilter(monitor.NewNormalizeFilter(e.DefaultScheme())),
 	)
 
 	if err != nil {

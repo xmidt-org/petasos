@@ -58,3 +58,7 @@ petasos
 
 !deploy/helm/petasos
 deploy/helm/petasos/rendered.*
+
+#ide
+.idea
+
