@@ -29,3 +29,6 @@ linters-settings:
   errorlint:
     # Report non-wrapping error creation using fmt.Errorf
     errorf: false
+  funlen:
+    lines: 120
+    statements: 50

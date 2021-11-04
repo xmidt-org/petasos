@@ -18,6 +18,13 @@ package main
 
 import (
 	"fmt"
+	"io"
+	"net/http"
+	_ "net/http/pprof" //nolint:gosec
+	"os"
+	"os/signal"
+	"runtime"
+
 	"github.com/go-kit/kit/log/level"
 	"github.com/justinas/alice"
 	"github.com/spf13/pflag"
@@ -36,19 +43,11 @@ import (
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/trace"
-	"io"
-	"net/http"
-	_ "net/http/pprof"
-	"os"
-	"os/signal"
-	"runtime"
 )
 
 const (
-	applicationName, apiBase     = "petasos", "api/v2"
-	release                      = "Developer"
-	defaultVnodeCount        int = 211
-	tracingConfigKey             = "tracing"
+	applicationName  = "petasos"
+	tracingConfigKey = "tracing"
 )
 
 var (
@@ -179,7 +178,7 @@ func petasos(arguments []string) int {
 		return 4
 	}
 
-	signal.Notify(signals, os.Kill, os.Interrupt)
+	signal.Notify(signals, os.Interrupt)
 	for exit := false; !exit; {
 		select {
 		case s := <-signals:
