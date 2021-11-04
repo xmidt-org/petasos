@@ -178,7 +178,7 @@ func petasos(arguments []string) int {
 		return 4
 	}
 
-	signal.Notify(signals, os.Kill, os.Interrupt)
+	signal.Notify(signals, os.Interrupt)
 	for exit := false; !exit; {
 		select {
 		case s := <-signals:
