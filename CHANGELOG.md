@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.1.7]
+### Added
+- use configured scheme filter. [#71](https://github.com/xmidt-org/petasos/pull/71)
+
 ## [v0.1.6]
 ### Changed
 - Update mentions of the default branch from 'master' to 'main'. [#54](https://github.com/xmidt-org/petasos/pull/54)
@@ -35,7 +39,8 @@ Switching to new build process
 ### Added
 - Initial creation
 
-[Unreleased]: https://github.com/Comcast/petasos/compare/v0.1.6...HEAD
+[Unreleased]: https://github.com/Comcast/petasos/compare/v0.1.7...HEAD
+[v0.1.7]: https://github.com/Comcast/petasos/compare/v0.1.6...v0.1.7
 [v0.1.6]: https://github.com/Comcast/petasos/compare/v0.1.5...v0.1.6
 [v0.1.5]: https://github.com/Comcast/petasos/compare/v0.1.4...v0.1.5
 [v0.1.4]: https://github.com/Comcast/petasos/compare/v0.1.2...v0.1.4
