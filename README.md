@@ -1,12 +1,13 @@
 # petasos
 (pronounced "pet-uh-sos")
 
-[![Build Status](https://github.com/xmidt-org/petasos/workflows/CI/badge.svg)](https://github.com/xmidt-org/petasos/actions)
+[![Build Status](https://github.com/xmidt-org/petasos/actions/workflows/ci.yml/badge.svg)](https://github.com/xmidt-org/petasos/actions/workflows/ci.yml)
+[![Dependency Updateer](https://github.com/xmidt-org/petasos/actions/workflows/updater.yml/badge.svg)](https://github.com/xmidt-org/petasos/actions/workflows/updater.yml)
 [![codecov.io](http://codecov.io/github/xmidt-org/petasos/coverage.svg?branch=main)](http://codecov.io/github/xmidt-org/petasos?branch=main)
 [![Go Report Card](https://goreportcard.com/badge/github.com/xmidt-org/petasos)](https://goreportcard.com/report/github.com/xmidt-org/petasos)
-[![Apache V2 License](http://img.shields.io/badge/license-Apache%20V2-blue.svg)](https://github.com/xmidt-org/petasos/blob/main/LICENSE)
-[![GitHub release](https://img.shields.io/github/release/xmidt-org/petasos.svg)](CHANGELOG.md)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=xmidt-org_petasos&metric=alert_status)](https://sonarcloud.io/dashboard?id=xmidt-org_petasos)
+[![Apache V2 License](http://img.shields.io/badge/license-Apache%20V2-blue.svg)](https://github.com/xmidt-org/petasos/blob/main/LICENSE)
+[![GitHub Release](https://img.shields.io/github/release/xmidt-org/petasos.svg)](CHANGELOG.md)
 
 ## Summary
 Petasos is the HTTP redirector component of [XMiDT](https://xmidt.io/).
