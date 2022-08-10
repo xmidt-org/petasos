@@ -4,7 +4,7 @@ go 1.12
 
 require (
 	github.com/c9s/goprocinfo v0.0.0-20190309065803-0b2ad9ac246b // indirect
-	github.com/go-kit/kit v0.10.0
+	github.com/go-kit/kit v0.12.0
 	github.com/gorilla/mux v1.8.0 // indirect
 	github.com/justinas/alice v1.2.0
 	github.com/prometheus/client_golang v1.12.1 // indirect
