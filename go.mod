@@ -9,7 +9,7 @@ require (
 	github.com/prometheus/client_golang v1.12.1 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5
-	github.com/spf13/viper v1.12.0
+	github.com/spf13/viper v1.13.0
 	github.com/xmidt-org/candlelight v0.0.5
 	github.com/xmidt-org/webpa-common v1.11.9
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.19.0
