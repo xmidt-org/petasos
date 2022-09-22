@@ -4,7 +4,7 @@ linters:
     - bodyclose
     - dupl
     - errorlint
-    - funlen
+  
     - goconst
     - gosec
     - misspell
