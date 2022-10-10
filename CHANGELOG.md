@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 - Updated spec file and rpkg version macro to be able to choose when the 'v' is included in the version. [#75](https://github.com/xmidt-org/petasos/pull/75)
+- Patched failing Docker image, removed deprecated Maintainer information, fixed linter issues and enabled linte. [#107](https://github.com/xmidt-org/petasos/pull/107)
 
 ## [v0.1.7]
 ### Added
