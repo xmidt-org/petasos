@@ -72,9 +72,6 @@ func loadTracing(v *viper.Viper, appName string) (candlelight.Tracing, error) {
 	if err != nil {
 		return candlelight.Tracing{}, err
 	}
-	// if len(config.Provider) != 0 && config.Provider != candlelight.DefaultTracerProvider {
-	// 	tracing.Enabled = true
-	// }
 	traceConfig.TraceProvider = tracerProvider
 	return tracing, nil
 }
