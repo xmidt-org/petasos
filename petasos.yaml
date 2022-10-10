@@ -32,7 +32,7 @@ flavor: "mint"
 ##############################################################################
 
 # For a complete view of the service config structure,
-# checkout https://godoc.org/github.com/xmidt-org/webpa-common/server#WebPA
+# checkout https://godoc.org/github.com/xmidt-org/webpa-common/v2/server#WebPA
 
 ########################################
 #   primary endpoint Configuration
@@ -40,7 +40,7 @@ flavor: "mint"
 
 # primary defines the details needed for the primary endpoint.  The
 # primary endpoint accepts the events from petasos (typically).
-# define https://godoc.org/github.com/xmidt-org/webpa-common/server#Basic
+# define https://godoc.org/github.com/xmidt-org/webpa-common/v2/server#Basic
 primary:
   # address provides the port number for the endpoint to bind to.
   # ":443" is ideal, but may require some special handling due to it being
@@ -63,7 +63,7 @@ primary:
 # health defines the details needed for the health check endpoint.  The
 # health check endpoint is generally used by services (like AWS Route53
 # or consul) to determine if this particular machine is healthy or not.
-# define https://godoc.org/github.com/xmidt-org/webpa-common/server#Health
+# define https://godoc.org/github.com/xmidt-org/webpa-common/v2/server#Health
 health:
   # address provides the port number for the endpoint to bind to.
   # ":80" is ideal, but may require some special handling due to it being
@@ -86,7 +86,7 @@ health:
 ########################################
 
 # pprof defines the details needed for the pprof debug endpoint.
-# define https://godoc.org/github.com/xmidt-org/webpa-common/server#Basic
+# define https://godoc.org/github.com/xmidt-org/webpa-common/v2/server#Basic
 # (Optional)
 pprof:
   # address provides the port number for the endpoint to bind to.
@@ -97,7 +97,7 @@ pprof:
 ########################################
 
 # metric defines the details needed for the prometheus metrics endpoint
-# define https://godoc.org/github.com/xmidt-org/webpa-common/server#Metric
+# define https://godoc.org/github.com/xmidt-org/webpa-common/v2/server#Metric
 # (Optional)
 metric:
   # address provides the port number for the endpoint to bind to.  Port 6404
@@ -162,7 +162,7 @@ log:
 ########################################
 
 # service configures the server for service discovery.
-# defined https://godoc.org/github.com/xmidt-org/webpa-common/service/servicecfg#Options
+# defined https://godoc.org/github.com/xmidt-org/webpa-common/v2/service/servicecfg#Options
 # this is required, consul or fixed must be used.
 service:
   # defaultScheme, used for the registered servers for communication.
@@ -184,7 +184,7 @@ service:
   fixed:
     - http://talaria:6200
   # # consul configures consul for service discovery.
-  # # defined https://godoc.org/github.com/xmidt-org/webpa-common/service/consul#Options
+  # # defined https://godoc.org/github.com/xmidt-org/webpa-common/v2/service/consul#Options
   # # (Optional) defaults define https://sourcegraph.com/github.com/hashicorp/consul/-/blob/api/api.go#L347
   # consul:
   #   # client is the configuration needed to connect to consul.
@@ -265,7 +265,7 @@ service:
   #   # Watches is a list of service(s) to watch from consul. The address of the
   #   # of the services are stored in memory. Upon update, the internal memory is
   #   # updated.
-  #   # defined https://godoc.org/github.com/xmidt-org/webpa-common/service/consul#Watch
+  #   # defined https://godoc.org/github.com/xmidt-org/webpa-common/v2/service/consul#Watch
   #   # (Optional) defaults to empty list
   #   watches:
   #     - # service name to watch for updates.
