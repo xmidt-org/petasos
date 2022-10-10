@@ -132,7 +132,7 @@ func petasos(arguments []string) int {
 		fmt.Fprintf(os.Stderr, "Unable to build tracing component: %v \n", err)
 		return 1
 	}
-	//infoLog.Log(logging.MessageKey(), "tracing status", "enabled", tracing.Enabled)
+	infoLog.Log(logging.MessageKey(), "tracing status", "enabled", !tracing.IsNoop())
 
 	accessor := new(service.UpdatableAccessor)
 
@@ -146,7 +146,7 @@ func petasos(arguments []string) int {
 		otelhttp.WithPropagators(tracing.Propagator()),
 		otelhttp.WithTracerProvider(tracing.TracerProvider()),
 	}
-	requestFunc := logginghttp.SetLogger(logger, logginghttp.Header("X-Webpa-Device-Name", "device_id"), logginghttp.Header("Authorization", "authorization"), logginghttp.LoggerFunc(candlelight.InjectTraceInfoInLogger()))
+	requestFunc := logginghttp.SetLogger(logger, logginghttp.Header("X-Webpa-Device-Name", "device_id"), logginghttp.Header("Authorization", "authorization"), candlelight.InjectTraceInfoInLogger())
 	decoratedHandler := alice.New(xcontext.Populate(requestFunc), candlelight.EchoFirstTraceNodeInfo(tracing.Propagator())).Then(redirectHandler)
 
 	handler := otelhttp.NewHandler(decoratedHandler, "mainSpan", options...)
