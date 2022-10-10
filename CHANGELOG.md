@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [v0.1.8]
+- Vuln patches
+  - [CVE-2022-29526](https://github.com/xmidt-org/petasos/issues/106)
+  - [CVE-2020-13949](https://github.com/xmidt-org/petasos/issues/86)
+  - [CVE-2020-26160](https://github.com/xmidt-org/petasos/issues/87)
 - Updated spec file and rpkg version macro to be able to choose when the 'v' is included in the version. [#75](https://github.com/xmidt-org/petasos/pull/75)
 - Patched failing Docker image, removed deprecated Maintainer information, fixed linter issues and enabled linte. [#107](https://github.com/xmidt-org/petasos/pull/107)
 
@@ -41,7 +47,8 @@ Switching to new build process
 ### Added
 - Initial creation
 
-[Unreleased]: https://github.com/Comcast/petasos/compare/v0.1.7...HEAD
+[Unreleased]: https://github.com/Comcast/petasos/compare/v0.1.8...HEAD
+[v0.1.8]: https://github.com/Comcast/petasos/compare/v0.1.7...v0.1.8
 [v0.1.7]: https://github.com/Comcast/petasos/compare/v0.1.6...v0.1.7
 [v0.1.6]: https://github.com/Comcast/petasos/compare/v0.1.5...v0.1.6
 [v0.1.5]: https://github.com/Comcast/petasos/compare/v0.1.4...v0.1.5
