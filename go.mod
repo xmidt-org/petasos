@@ -9,7 +9,7 @@ require (
 	github.com/spf13/viper v1.13.0
 	github.com/xmidt-org/candlelight v0.0.11
 	github.com/xmidt-org/webpa-common/v2 v2.0.7
-	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.36.1
+	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.36.2
 )
 
 require (
@@ -91,7 +91,7 @@ require (
 	go.opentelemetry.io/otel/exporters/jaeger v1.9.0 // indirect
 	go.opentelemetry.io/otel/exporters/stdout/stdouttrace v1.9.0 // indirect
 	go.opentelemetry.io/otel/exporters/zipkin v1.9.0 // indirect
-	go.opentelemetry.io/otel/metric v0.32.1 // indirect
+	go.opentelemetry.io/otel/metric v0.32.2 // indirect
 	go.opentelemetry.io/otel/sdk v1.9.0 // indirect
 	go.opentelemetry.io/otel/trace v1.10.0 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
