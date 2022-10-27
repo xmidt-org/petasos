@@ -11,7 +11,6 @@ RUN apk add --no-cache --no-progress \
     make \
     curl \
     git \
-    openssh \
     gcc \
     libc-dev \
     upx
@@ -25,10 +24,9 @@ RUN make test release
 FROM alpine:3.12.1
 
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-COPY --from=builder /src/petasos /src/petasos.yaml /src/deploy/packaging/entrypoint.sh /go/bin/spruce /src/Dockerfile /src/NOTICE /src/LICENSE /src/CHANGELOG.md /
+COPY --from=builder /src/petasos /src/deploy/packaging/entrypoint.sh /go/bin/spruce /src/Dockerfile /src/NOTICE /src/LICENSE /src/CHANGELOG.md /
 COPY --from=builder /src/deploy/packaging/petasos_spruce.yaml /tmp/petasos_spruce.yaml
-
-RUN mkdir /etc/petasos/ && touch /etc/petasos/petasos.yaml && chmod 666 /etc/petasos/petasos.yaml
+COPY --from=builder /src/petasos.yaml /etc/petasos/petasos.yaml
 
 USER nobody
 
