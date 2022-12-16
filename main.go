@@ -57,22 +57,15 @@ var (
 func loadTracing(v *viper.Viper, appName string) (candlelight.Tracing, error) {
 
 	var config candlelight.Config
-	var traceConfig candlelight.TraceConfig
+	err := v.UnmarshalKey(tracingConfigKey, &config)
+	if err != nil {
+		return candlelight.Tracing{}, err
+	}
+	config.ApplicationName = appName
 	tracing, err := candlelight.New(config)
 	if err != nil {
 		return candlelight.Tracing{}, err
 	}
-
-	error := v.UnmarshalKey(tracingConfigKey, &config)
-	if error != nil {
-		return candlelight.Tracing{}, err
-	}
-	config.ApplicationName = appName
-	tracerProvider, err := candlelight.ConfigureTracerProvider(config)
-	if err != nil {
-		return candlelight.Tracing{}, err
-	}
-	traceConfig.TraceProvider = tracerProvider
 	return tracing, nil
 }
 
