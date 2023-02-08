@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [v0.1.11]
+- Updated dependencies via dependabot
+
 ## [v0.1.10]
 - Remove several unused build files and update the docker images to work. [#119](https://github.com/xmidt-org/petasos/pull/119)
 
@@ -54,7 +57,8 @@ Switching to new build process
 ### Added
 - Initial creation
 
-[Unreleased]: https://github.com/Comcast/petasos/compare/v0.1.10...HEAD
+[Unreleased]: https://github.com/Comcast/petasos/compare/v0.1.11...HEAD
+[v0.1.11]: https://github.com/Comcast/petasos/compare/v0.1.10...v0.1.11
 [v0.1.10]: https://github.com/Comcast/petasos/compare/v0.1.9...v0.1.10
 [v0.1.9]: https://github.com/Comcast/petasos/compare/v0.1.8...v0.1.9
 [v0.1.8]: https://github.com/Comcast/petasos/compare/v0.1.7...v0.1.8
