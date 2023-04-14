@@ -7,7 +7,7 @@ require (
 	github.com/justinas/alice v1.2.0
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.15.0
-	github.com/xmidt-org/candlelight v0.0.15
+	github.com/xmidt-org/candlelight v0.0.16
 	github.com/xmidt-org/webpa-common/v2 v2.0.7
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.40.0
 )
@@ -77,7 +77,7 @@ require (
 	github.com/stretchr/objx v0.5.0 // indirect
 	github.com/stretchr/testify v1.8.2 // indirect
 	github.com/subosito/gotenv v1.4.2 // indirect
-	github.com/ugorji/go/codec v1.2.7 // indirect
+	github.com/ugorji/go/codec v1.2.11 // indirect
 	github.com/xmidt-org/argus v0.9.1 // indirect
 	github.com/xmidt-org/arrange v0.3.0 // indirect
 	github.com/xmidt-org/bascule v0.11.0 // indirect
@@ -87,7 +87,7 @@ require (
 	github.com/xmidt-org/sallust v0.1.6 // indirect
 	github.com/xmidt-org/themis v0.4.8 // indirect
 	github.com/xmidt-org/touchstone v0.1.2 // indirect
-	github.com/xmidt-org/wrp-go/v3 v3.1.4 // indirect
+	github.com/xmidt-org/wrp-go/v3 v3.1.6 // indirect
 	go.opentelemetry.io/otel v1.14.0 // indirect
 	go.opentelemetry.io/otel/exporters/jaeger v1.14.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/internal/retry v1.14.0 // indirect
@@ -95,7 +95,7 @@ require (
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.14.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp v1.14.0 // indirect
 	go.opentelemetry.io/otel/exporters/stdout/stdouttrace v1.14.0 // indirect
-	go.opentelemetry.io/otel/exporters/zipkin v1.13.0 // indirect
+	go.opentelemetry.io/otel/exporters/zipkin v1.14.0 // indirect
 	go.opentelemetry.io/otel/metric v0.37.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.14.0 // indirect
 	go.opentelemetry.io/otel/trace v1.14.0 // indirect
@@ -103,7 +103,7 @@ require (
 	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/dig v1.15.0 // indirect
 	go.uber.org/fx v1.18.1 // indirect
-	go.uber.org/multierr v1.8.0 // indirect
+	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.23.0 // indirect
 	golang.org/x/crypto v0.0.0-20221010152910-d6f0a8c073c2 // indirect
 	golang.org/x/net v0.7.0 // indirect
