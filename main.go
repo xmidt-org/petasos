@@ -25,22 +25,20 @@ import (
 	"os/signal"
 	"runtime"
 
-	"github.com/go-kit/log/level"
 	"github.com/justinas/alice"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 	"github.com/xmidt-org/candlelight"
+	"github.com/xmidt-org/webpa-common/v2/adapter"
 	"github.com/xmidt-org/webpa-common/v2/concurrent"          // nolint: staticcheck
 	"github.com/xmidt-org/webpa-common/v2/device"              // nolint: staticcheck
-	"github.com/xmidt-org/webpa-common/v2/logging"             // nolint: staticcheck
-	"github.com/xmidt-org/webpa-common/v2/logging/logginghttp" // nolint: staticcheck
 	"github.com/xmidt-org/webpa-common/v2/server"              // nolint: staticcheck
 	"github.com/xmidt-org/webpa-common/v2/service"             // nolint: staticcheck
 	"github.com/xmidt-org/webpa-common/v2/service/monitor"     // nolint: staticcheck
 	"github.com/xmidt-org/webpa-common/v2/service/servicecfg"  // nolint: staticcheck
 	"github.com/xmidt-org/webpa-common/v2/service/servicehttp" // nolint: staticcheck
-	"github.com/xmidt-org/webpa-common/v2/xhttp/xcontext"      // nolint: staticcheck
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
+	"go.uber.org/zap"
 )
 
 const (
@@ -81,49 +79,45 @@ func petasos(arguments []string) int {
 		v = viper.New()
 
 		logger, metricsRegistry, webPA, err = server.Initialize(applicationName, arguments, f, v, service.Metrics)
-		infoLog                             = logging.Info(logger)
-		errorLog                            = logging.Error(logger)
 	)
 
 	if parseErr, done := printVersion(f, arguments); done {
 		// if we're done, we're exiting no matter what
 		if parseErr != nil {
-			friendlyError := fmt.Sprintf("failed to parse arguments. detailed error: %s", parseErr)
-			logging.Error(logger).Log(
-				logging.ErrorKey(),
-				friendlyError)
+			logger.Error("failed to parse arguments. detailed error:", zap.Error(parseErr))
 			os.Exit(1)
 		}
 		os.Exit(0)
 	}
 
 	if err != nil {
-		errorLog.Log(logging.MessageKey(), "Unable to initialize Viper environment", logging.ErrorKey(), err)
+		logger.Error("Unable to initialize Viper environment", zap.Error(err))
 		return 1
 	}
 
 	//
 	// Now, initialize the service discovery infrastructure
 	//
+	var log = &adapter.Logger{
+		Logger: logger,
+	}
 
-	e, err := servicecfg.NewEnvironment(logger, v.Sub("service"))
+	e, err := servicecfg.NewEnvironment(log, v.Sub("service"))
 	if err != nil {
-		errorLog.Log(logging.MessageKey(), "Unable to initialize service discovery environment", logging.ErrorKey(), err)
+		logger.Error("Unable to initialize service discovery environment", zap.Error(err))
 		return 2
 	} else if e == nil {
-		errorLog.Log(logging.MessageKey(), "Petasos requires service discovery")
+		logger.Error("Petasos requires service discovery")
 		return 2
 	}
 
-	infoLog.Log("configurationFile", v.ConfigFileUsed())
-
+	logger.Info("configuration file successfully unmarshaled", zap.Any("configurationFile", v.ConfigFileUsed()))
 	tracing, err := loadTracing(v, applicationName)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to build tracing component: %v \n", err)
 		return 1
 	}
-	infoLog.Log(logging.MessageKey(), "tracing status", "enabled", !tracing.IsNoop())
-
+	logger.Info("tracing status", zap.Bool("enabled", !tracing.IsNoop()))
 	accessor := new(service.UpdatableAccessor)
 
 	redirectHandler := &servicehttp.RedirectHandler{
@@ -136,8 +130,7 @@ func petasos(arguments []string) int {
 		otelhttp.WithPropagators(tracing.Propagator()),
 		otelhttp.WithTracerProvider(tracing.TracerProvider()),
 	}
-	requestFunc := logginghttp.SetLogger(logger, logginghttp.Header("X-Webpa-Device-Name", "device_id"), logginghttp.Header("Authorization", "authorization"), candlelight.InjectTraceInfoInLogger())
-	decoratedHandler := alice.New(xcontext.Populate(requestFunc), candlelight.EchoFirstTraceNodeInfo(tracing.Propagator())).Then(redirectHandler)
+	decoratedHandler := alice.New(setLogger(logger, header("X-Webpa-Device-Name", "device_id")), candlelight.EchoFirstTraceNodeInfo(tracing.Propagator())).Then(redirectHandler)
 
 	handler := otelhttp.NewHandler(decoratedHandler, "mainSpan", options...)
 
@@ -155,7 +148,7 @@ func petasos(arguments []string) int {
 	)
 
 	if err != nil {
-		errorLog.Log(logging.MessageKey(), "Unable to start service discovery monitor", logging.ErrorKey(), err)
+		logger.Error("Unable to start service discovery monitor", zap.Error(err))
 		return 3
 	}
 
@@ -164,7 +157,7 @@ func petasos(arguments []string) int {
 	//
 	waitGroup, shutdown, err := concurrent.Execute(petasosServer)
 	if err != nil {
-		errorLog.Log(logging.MessageKey(), "Unable to start petasos", logging.ErrorKey(), err)
+		logger.Error("Ubale to start petasos", zap.Error(err))
 		return 4
 	}
 
@@ -172,10 +165,10 @@ func petasos(arguments []string) int {
 	for exit := false; !exit; {
 		select {
 		case s := <-signals:
-			logger.Log(level.Key(), level.ErrorValue(), logging.MessageKey(), "exiting due to signal", "signal", s)
+			logger.Info("exiting due to signal", zap.Any("signal", s))
 			exit = true
 		case <-done:
-			logger.Log(level.Key(), level.ErrorValue(), logging.MessageKey(), "one or more servers exited")
+			logger.Error("one or more servers exited")
 			exit = true
 		}
 	}
