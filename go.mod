@@ -6,7 +6,7 @@ require (
 	github.com/justinas/alice v1.2.0
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.18.2
-	github.com/stretchr/testify v1.8.4
+	github.com/stretchr/testify v1.9.0
 	github.com/xmidt-org/candlelight v0.0.16
 	github.com/xmidt-org/sallust v0.2.2
 	github.com/xmidt-org/webpa-common/v2 v2.2.0
@@ -80,7 +80,7 @@ require (
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
 	github.com/spf13/afero v1.11.0 // indirect
 	github.com/spf13/cast v1.6.0 // indirect
-	github.com/stretchr/objx v0.5.0 // indirect
+	github.com/stretchr/objx v0.5.2 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/ugorji/go/codec v1.2.11 // indirect
 	github.com/xmidt-org/argus v0.9.10 // indirect
