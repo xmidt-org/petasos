@@ -1,7 +1,7 @@
-## SPDX-FileCopyrightText: 2016 Comcast Cable Communications Management, LLC
-## SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2016 Comcast Cable Communications Management, LLC
+# SPDX-License-Identifier: Apache-2.0
 # Default values for xmitd-talaria.
-
+---
 petasos:
   # docker image used
   image: xmidt/petasos
@@ -22,9 +22,7 @@ pprof:
 metric:
   address:
     host: ""
-    port: "6403"  
+    port: "6403"
 
 # Pull secret used when images are stored in a private repository
 # imagePullSecretName:
-
-
