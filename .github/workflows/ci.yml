@@ -34,4 +34,4 @@
           LICENSE
           NOTICE
         yaml-lint-skip: false
-      secrets: inherit
+      secrets: inherit  
