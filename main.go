@@ -16,10 +16,11 @@ import (
 	"github.com/spf13/viper"
 	"github.com/xmidt-org/candlelight"
 	"github.com/xmidt-org/webpa-common/v2/adapter"
-	"github.com/xmidt-org/webpa-common/v2/concurrent"          // nolint: staticcheck
-	"github.com/xmidt-org/webpa-common/v2/device"              // nolint: staticcheck
-	"github.com/xmidt-org/webpa-common/v2/server"              // nolint: staticcheck
-	"github.com/xmidt-org/webpa-common/v2/service"             // nolint: staticcheck
+	"github.com/xmidt-org/webpa-common/v2/concurrent" // nolint: staticcheck
+	"github.com/xmidt-org/webpa-common/v2/device"     // nolint: staticcheck
+	"github.com/xmidt-org/webpa-common/v2/server"     // nolint: staticcheck
+	"github.com/xmidt-org/webpa-common/v2/service"    // nolint: staticcheck
+	"github.com/xmidt-org/webpa-common/v2/service/accessor"
 	"github.com/xmidt-org/webpa-common/v2/service/monitor"     // nolint: staticcheck
 	"github.com/xmidt-org/webpa-common/v2/service/servicecfg"  // nolint: staticcheck
 	"github.com/xmidt-org/webpa-common/v2/service/servicehttp" // nolint: staticcheck
@@ -104,7 +105,7 @@ func petasos(arguments []string) int {
 		return 1
 	}
 	logger.Info("tracing status", zap.Bool("enabled", !tracing.IsNoop()))
-	accessor := new(service.UpdatableAccessor)
+	accessor := new(accessor.UpdatableAccessor)
 
 	redirectHandler := &servicehttp.RedirectHandler{
 		KeyFunc:      device.IDHashParser,
@@ -116,7 +117,7 @@ func petasos(arguments []string) int {
 		otelhttp.WithPropagators(tracing.Propagator()),
 		otelhttp.WithTracerProvider(tracing.TracerProvider()),
 	}
-	decoratedHandler := alice.New(setLogger(logger, header("X-Webpa-Device-Name", "device_id")), candlelight.EchoFirstTraceNodeInfo(tracing.Propagator(), false)).Then(redirectHandler)
+	decoratedHandler := alice.New(setLogger(logger, header("X-Webpa-Device-Name", "device_id")), candlelight.EchoFirstTraceNodeInfo(tracing, false)).Then(redirectHandler)
 
 	handler := otelhttp.NewHandler(decoratedHandler, "mainSpan", options...)
 
