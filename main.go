@@ -117,7 +117,7 @@ func petasos(arguments []string) int {
 		otelhttp.WithPropagators(tracing.Propagator()),
 		otelhttp.WithTracerProvider(tracing.TracerProvider()),
 	}
-	decoratedHandler := alice.New(setLogger(logger, header("X-Webpa-Device-Name", "device_id")), candlelight.EchoFirstTraceNodeInfo(tracing, true)).Then(redirectHandler)
+	decoratedHandler := alice.New(setLogger(logger, header("X-Webpa-Device-Name", "device_id")), candlelight.EchoFirstTraceNodeInfo(tracing, false)).Then(redirectHandler)
 
 	handler := otelhttp.NewHandler(decoratedHandler, "mainSpan", options...)
 

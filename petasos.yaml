@@ -1,5 +1,5 @@
-## SPDX-FileCopyrightText: 2016 Comcast Cable Communications Management, LLC
-## SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2016 Comcast Cable Communications Management, LLC
+# SPDX-License-Identifier: Apache-2.0
 ---
 # The unique fully-qualified-domain-name of the server.  It is provided to
 # the X-petasos-Server header for showing what server fulfilled the request
@@ -339,7 +339,6 @@ tracing:
   # so that trace information is not written to stdout.
   # skipTraceExport: true
 
-  # endpoint is where trace information should be routed. Applies to otlp, zipkin, and jaegar. OTLP/gRPC uses port 4317 by default. 
+  # endpoint is where trace information should be routed. Applies to otlp, zipkin, and jaegar. OTLP/gRPC uses port 4317 by default.
   # OTLP/HTTP uses port 4318 by default.
   # endpoint: "http://localhost:9411/api/v2/spans"
-  
