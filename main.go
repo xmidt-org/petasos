@@ -16,11 +16,11 @@ import (
 	"github.com/spf13/viper"
 	"github.com/xmidt-org/candlelight"
 	"github.com/xmidt-org/webpa-common/v2/adapter"
-	"github.com/xmidt-org/webpa-common/v2/concurrent" // nolint: staticcheck
-	"github.com/xmidt-org/webpa-common/v2/device"     // nolint: staticcheck
-	"github.com/xmidt-org/webpa-common/v2/server"     // nolint: staticcheck
-	"github.com/xmidt-org/webpa-common/v2/service"    // nolint: staticcheck
-	"github.com/xmidt-org/webpa-common/v2/service/accessor"
+	"github.com/xmidt-org/webpa-common/v2/concurrent"          // nolint: staticcheck
+	"github.com/xmidt-org/webpa-common/v2/device"              // nolint: staticcheck
+	"github.com/xmidt-org/webpa-common/v2/server"              // nolint: staticcheck
+	"github.com/xmidt-org/webpa-common/v2/service"             // nolint: staticcheck
+	"github.com/xmidt-org/webpa-common/v2/service/accessor"    // nolint: staticcheck
 	"github.com/xmidt-org/webpa-common/v2/service/monitor"     // nolint: staticcheck
 	"github.com/xmidt-org/webpa-common/v2/service/servicecfg"  // nolint: staticcheck
 	"github.com/xmidt-org/webpa-common/v2/service/servicehttp" // nolint: staticcheck
