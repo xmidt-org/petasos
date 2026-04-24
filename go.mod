@@ -6,7 +6,7 @@ require (
 	github.com/justinas/alice v1.2.0
 	github.com/spf13/pflag v1.0.6
 	github.com/spf13/viper v1.19.0
-	github.com/stretchr/testify v1.10.0
+	github.com/stretchr/testify v1.11.1
 	github.com/xmidt-org/candlelight v0.2.1
 	github.com/xmidt-org/sallust v0.2.4
 	github.com/xmidt-org/webpa-common/v2 v2.7.0
