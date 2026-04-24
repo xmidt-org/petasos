@@ -10,7 +10,7 @@ require (
 	github.com/xmidt-org/candlelight v0.2.10
 	github.com/xmidt-org/sallust v0.2.5
 	github.com/xmidt-org/webpa-common/v2 v2.8.2
-	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.65.0
+	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.68.0
 	go.uber.org/zap v1.27.1
 )
 
