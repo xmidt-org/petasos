@@ -11,7 +11,7 @@ require (
 	github.com/xmidt-org/sallust v0.2.5
 	github.com/xmidt-org/webpa-common/v2 v2.8.2
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.68.0
-	go.uber.org/zap v1.27.1
+	go.uber.org/zap v1.28.0
 )
 
 require (
