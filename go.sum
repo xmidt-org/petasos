@@ -254,8 +254,8 @@ github.com/subosito/gotenv v1.6.0/go.mod h1:Dk4QP5c2W3ibzajGcXpNraDfq2IrhjMIvMSW
 github.com/tv42/httpunix v0.0.0-20150427012821-b75d8614f926/go.mod h1:9ESjWnEqriFuLhtthL60Sar/7RFoluCcXsuvEwTV5KM=
 github.com/ugorji/go/codec v1.2.14 h1:yOQvXCBc3Ij46LRkRoh4Yd5qK6LVOgi0bYOXfb7ifjw=
 github.com/ugorji/go/codec v1.2.14/go.mod h1:UNopzCgEMSXjBc6AOMqYvWC1ktqTAfzJZUZgYf6w6lg=
-github.com/xmidt-org/candlelight v0.2.10 h1:9pa9pVsYKi/dzuxemPiFY2surYBwJ6JxcOvwCJ+9nPM=
-github.com/xmidt-org/candlelight v0.2.10/go.mod h1:5OMLPpvD87Ic5Ve3WeaAcFAElw50EDUad71ANjaG3DY=
+github.com/xmidt-org/candlelight v0.2.11 h1:JTOlz5SECMuz9bS/6ICyMKopoETa/3h49UyHvrpe7Mo=
+github.com/xmidt-org/candlelight v0.2.11/go.mod h1:5OMLPpvD87Ic5Ve3WeaAcFAElw50EDUad71ANjaG3DY=
 github.com/xmidt-org/sallust v0.2.5 h1:j1h2yxXMw+bAoaXMB/WDuYm34E9pYHU98GqUxtqgp8g=
 github.com/xmidt-org/sallust v0.2.5/go.mod h1:FwymmyVGCwDwux5pm1R3GuPOTSMQAqRWIW6CVPPI6Kk=
 github.com/xmidt-org/webpa-common/v2 v2.8.2 h1:DIFtlRlHsnfbF5/1PgSk36xuaCp6gC0ReE92Sl6Z2cA=
