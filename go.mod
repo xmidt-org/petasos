@@ -8,7 +8,7 @@ require (
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
 	github.com/xmidt-org/candlelight v0.2.11
-	github.com/xmidt-org/sallust v0.2.5
+	github.com/xmidt-org/sallust v0.2.6
 	github.com/xmidt-org/webpa-common/v2 v2.8.2
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.68.0
 	go.uber.org/zap v1.28.0
