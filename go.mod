@@ -1,6 +1,6 @@
 module github.com/xmidt-org/petasos
 
-go 1.25.5
+go 1.26
 
 require (
 	github.com/justinas/alice v1.2.0
@@ -8,7 +8,7 @@ require (
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
 	github.com/xmidt-org/candlelight v0.2.11
-	github.com/xmidt-org/sallust v0.2.6
+	github.com/xmidt-org/sallust v0.2.8
 	github.com/xmidt-org/webpa-common/v2 v2.8.2
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.68.0
 	go.uber.org/zap v1.28.0
@@ -87,7 +87,7 @@ require (
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/exp v0.0.0-20250808145144-a408d31f581a // indirect
 	golang.org/x/net v0.52.0 // indirect
-	golang.org/x/sys v0.42.0 // indirect
+	golang.org/x/sys v0.45.0 // indirect
 	golang.org/x/text v0.35.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20260401024825-9d38bb4040a9 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260401024825-9d38bb4040a9 // indirect
