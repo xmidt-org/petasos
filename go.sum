@@ -258,8 +258,8 @@ github.com/xmidt-org/candlelight v0.2.12 h1:N8vxeWTdLG79ogRZxZ7oY/+FRnQLkh4mfSB8
 github.com/xmidt-org/candlelight v0.2.12/go.mod h1:d7U+IycdZprO40vIEp29Oc31gjeMYEu5OfzRlujkwXI=
 github.com/xmidt-org/sallust v0.2.8 h1:SUvBdFL0PDrpW20T8VE6d4I8DKVtshhmJwlKoLx3ZJQ=
 github.com/xmidt-org/sallust v0.2.8/go.mod h1:IA73vXpu7XkmEWtG3qsxKLW7u6xTR5ZTRUTffP6uVXU=
-github.com/xmidt-org/webpa-common/v2 v2.8.2 h1:DIFtlRlHsnfbF5/1PgSk36xuaCp6gC0ReE92Sl6Z2cA=
-github.com/xmidt-org/webpa-common/v2 v2.8.2/go.mod h1:LwhIv/MJF9ToSduI37gpkSumOPdB+5i16bXOX/435dA=
+github.com/xmidt-org/webpa-common/v2 v2.9.0 h1:wcc9H1FYj1lGmL+mjhsAoXLa5/XQv2tL36r2/1RvoXE=
+github.com/xmidt-org/webpa-common/v2 v2.9.0/go.mod h1:m+5wFq7S+N4oFh4Vm2JfGOxCf5+O9nXR8DIS9yZSxng=
 github.com/xmidt-org/wrp-go/v3 v3.7.0 h1:m9ghdq79Zzb0WjomUJ02rzFpI0RK8KTjArYpNIwx1fc=
 github.com/xmidt-org/wrp-go/v3 v3.7.0/go.mod h1:eyMj+q/7LQ4SU6Z3s6VOwuTVSh6/DJBb2soBGBFSung=
 go.opentelemetry.io/auto/sdk v1.2.1 h1:jXsnJ4Lmnqd11kwkBV2LgLoFMZKizbCi5fNZ/ipaZ64=
