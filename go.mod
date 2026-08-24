@@ -7,7 +7,7 @@ require (
 	github.com/spf13/pflag v1.0.10
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.12.1
-	github.com/xmidt-org/candlelight v0.2.17
+	github.com/xmidt-org/candlelight v0.2.18
 	github.com/xmidt-org/sallust v0.2.10
 	github.com/xmidt-org/webpa-common/v2 v2.10.7
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.70.0
