@@ -9,7 +9,7 @@ require (
 	github.com/stretchr/testify v1.12.1
 	github.com/xmidt-org/candlelight v0.2.19
 	github.com/xmidt-org/sallust v0.2.10
-	github.com/xmidt-org/webpa-common/v2 v2.10.12
+	github.com/xmidt-org/webpa-common/v2 v2.10.13
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.71.0
 	go.uber.org/zap v1.28.0
 )
@@ -89,7 +89,7 @@ require (
 	golang.org/x/text v0.41.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20260819154853-08b0e4226688 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260819154853-08b0e4226688 // indirect
-	google.golang.org/grpc v1.83.1 // indirect
+	google.golang.org/grpc v1.83.2 // indirect
 	google.golang.org/protobuf v1.36.12 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1 // indirect
 )
