@@ -9,7 +9,7 @@ require (
 	github.com/stretchr/testify v1.12.1
 	github.com/xmidt-org/candlelight v0.2.21
 	github.com/xmidt-org/sallust v0.2.10
-	github.com/xmidt-org/webpa-common/v2 v2.10.14
+	github.com/xmidt-org/webpa-common/v2 v2.10.15
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.72.0
 	go.uber.org/zap v1.28.0
 )
