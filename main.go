@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	_ "net/http/pprof" //nolint:gosec
+	_ "net/http/pprof" //nolint:gosec // pprof is intentionally exposed on the debug server
 	"os"
 	"os/signal"
 	"runtime"
@@ -16,14 +16,14 @@ import (
 	"github.com/spf13/viper"
 	"github.com/xmidt-org/candlelight"
 	"github.com/xmidt-org/webpa-common/v2/adapter"
-	"github.com/xmidt-org/webpa-common/v2/concurrent"          // nolint: staticcheck
-	"github.com/xmidt-org/webpa-common/v2/device"              // nolint: staticcheck
-	"github.com/xmidt-org/webpa-common/v2/server"              // nolint: staticcheck
-	"github.com/xmidt-org/webpa-common/v2/service"             // nolint: staticcheck
-	"github.com/xmidt-org/webpa-common/v2/service/accessor"    // nolint: staticcheck
-	"github.com/xmidt-org/webpa-common/v2/service/monitor"     // nolint: staticcheck
-	"github.com/xmidt-org/webpa-common/v2/service/servicecfg"  // nolint: staticcheck
-	"github.com/xmidt-org/webpa-common/v2/service/servicehttp" // nolint: staticcheck
+	"github.com/xmidt-org/webpa-common/v2/concurrent"       //nolint:staticcheck // deprecated webpa-common package, pending migration
+	"github.com/xmidt-org/webpa-common/v2/device"           //nolint:staticcheck // deprecated webpa-common package, pending migration
+	"github.com/xmidt-org/webpa-common/v2/server"           //nolint:staticcheck // deprecated webpa-common package, pending migration
+	"github.com/xmidt-org/webpa-common/v2/service"          //nolint:staticcheck // deprecated webpa-common package, pending migration
+	"github.com/xmidt-org/webpa-common/v2/service/accessor" //nolint:staticcheck // deprecated webpa-common package, pending migration
+	"github.com/xmidt-org/webpa-common/v2/service/monitor"
+	"github.com/xmidt-org/webpa-common/v2/service/servicecfg"
+	"github.com/xmidt-org/webpa-common/v2/service/servicehttp"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 	"go.uber.org/zap"
 )
