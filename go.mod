@@ -4,7 +4,7 @@ go 1.26.9
 
 require (
 	github.com/justinas/alice v1.2.0
-	github.com/spf13/pflag v1.0.10
+	github.com/spf13/pflag v1.1.0
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.12.1
 	github.com/xmidt-org/candlelight v0.4.2
