@@ -229,8 +229,8 @@ github.com/xmidt-org/candlelight v0.4.2 h1:MsvITBvPUA7T0TNrYsX6gEUFc7Cq+kbRwkO6J
 github.com/xmidt-org/candlelight v0.4.2/go.mod h1:34U8aDDMxDUrcF+BlY6cmtw5WUq3PsTUv6Q0r5rV6vE=
 github.com/xmidt-org/sallust v0.2.10 h1:q5RR3zZ22+FHIGGLNTlARdSqGKYVIQeWL320NybHhxk=
 github.com/xmidt-org/sallust v0.2.10/go.mod h1:SWs5tDl0oyi1bBgvVU8ucxaR1qjPO66ecyLW8/cAzUk=
-github.com/xmidt-org/webpa-common/v2 v2.10.19 h1:uO+aRTMwYasf1D3erL28EChx7xdqWEyV6/TSgbL/seE=
-github.com/xmidt-org/webpa-common/v2 v2.10.19/go.mod h1:UTTZKktXjRsWZCdz7LXBvOp92nhAst0rFwSLGSKvqAQ=
+github.com/xmidt-org/webpa-common/v2 v2.10.20 h1:80vdr13S2/2bl5PMTpY8Rvm/CcUom+qPVuNlg5JtrpM=
+github.com/xmidt-org/webpa-common/v2 v2.10.20/go.mod h1:ajwTNcoDG0YXGMoNrWJ4AYSrXdsuhgH8oVkoTxy3Tn4=
 github.com/xmidt-org/wrp-go/v3 v3.7.0 h1:m9ghdq79Zzb0WjomUJ02rzFpI0RK8KTjArYpNIwx1fc=
 github.com/xmidt-org/wrp-go/v3 v3.7.0/go.mod h1:eyMj+q/7LQ4SU6Z3s6VOwuTVSh6/DJBb2soBGBFSung=
 github.com/xmidt-org/wrp-go/v5 v5.4.7 h1:BJuz1doC6emDJPli9vmXTsroKciU4CsBedu3YJYamv8=
